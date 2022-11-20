@@ -21,6 +21,7 @@ sipkpta-363910-e8e0ae7475dc.json
 env
 phpunit.xml.dist
 note.txt
+ftp-account.txt
 
 
 # Recycle Bin used on file shares
