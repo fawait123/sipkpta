@@ -478,7 +478,8 @@ if (session()->get('role') == "mahasiswa") : ?>
                 url: "<?= base_url('bimbingan/getMahasiswa') ?>",
                 method: 'get',
                 data: {
-                    dosen: dosen
+                    dosen: dosen,
+                    jenis:'TA'
                 },
                 dataType: 'json',
                 success: function(res) {

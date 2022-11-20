@@ -128,12 +128,26 @@ class BimbinganModel extends Model
         return $builder->get();
     }
 
-    public function getMahasiswa($nik)
+    public function getMahasiswa($nik,$jenis=null)
     {
         $builder = $this->db->table('tb_pengajuan');
         $builder->join('tb_ploting_pembimbing', 'tb_pengajuan.no_pengajuan=tb_ploting_pembimbing.no_pengajuan', 'left');
         $builder->join('tb_mahasiswa', 'tb_pengajuan.npm=tb_mahasiswa.npm', 'left');
         $builder->where('tb_ploting_pembimbing.nik', $nik);
+        return $builder->get();
+    }
+
+    public function getMahasiswa1($nik,$jenis=null)
+    {
+        $builder = $this->db->table('tb_pengajuan');
+        $builder->join('tb_ploting_pembimbing', 'tb_pengajuan.no_pengajuan=tb_ploting_pembimbing.no_pengajuan', 'left');
+        $builder->join('tb_mahasiswa', 'tb_pengajuan.npm=tb_mahasiswa.npm', 'left');
+        $builder->where('tb_ploting_pembimbing.nik', $nik);
+        if($jenis != null){
+            $builder->where('tb_pengajuan.jenis',$jenis);
+        }
+        $status_perpanjang = ['Baru','Perpanjang'];
+        $builder->whereIn('tb_pengajuan.status_perpanjang',$status_perpanjang);
         return $builder->get();
     }
 
