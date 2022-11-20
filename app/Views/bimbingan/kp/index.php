@@ -498,7 +498,8 @@ if (session()->get('role') == "mahasiswa") : ?>
                 url: "<?= base_url('bimbingan/getMahasiswa') ?>",
                 method: 'get',
                 data: {
-                    dosen: dosen
+                    dosen: dosen,
+                    jenis:'KP'
                 },
                 dataType: 'json',
                 success: function(res) {
@@ -526,7 +527,8 @@ if (session()->get('role') == "mahasiswa") : ?>
                     url: "<?= base_url('bimbingan/getMahasiswa') ?>",
                     method: 'get',
                     data: {
-                        dosen: dosen
+                        dosen: dosen,
+                        jenis:'KP'
                     },
                     dataType: 'json',
                     success: function(res) {

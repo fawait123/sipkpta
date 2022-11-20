@@ -447,8 +447,9 @@ class Bimbingan extends BaseController
     public function getMahasiswa()
     {
         $nik = $_GET['dosen'];
+        $jenis = $_GET['jenis'];
         $model = new BimbinganModel();
-        $hasil = $model->getMahasiswa($nik)->getResult();
+        $hasil = $model->getMahasiswa1($nik,$jenis)->getResult();
         return json_encode($hasil);
     }
 
