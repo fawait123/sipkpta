@@ -22,6 +22,7 @@ env
 phpunit.xml.dist
 note.txt
 ftp-account.txt
+public
 
 
 # Recycle Bin used on file shares
