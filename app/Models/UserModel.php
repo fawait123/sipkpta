@@ -33,4 +33,11 @@ class UserModel extends Model
         $builder->whereNotIn('role', $role);
         return $builder->get();
     }
+
+    public function getMahasiswa($username)
+    {
+        $builder = $this->db->table('tb_mahasiswa');
+        $builder->where('username', $username);
+        return $builder->get();
+    }
 }
