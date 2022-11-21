@@ -48,7 +48,6 @@ class Pendaftaran extends BaseController
             if (session()->get('role') == "mahasiswa") :
                 $data['mahasiswa'] = $user->getMahasiswa(session()->get('username'))->getRow();
                 if ($data['search'] != null) :
-                    // dd($data['search']->kd_pendaftaran);
                     $data['ujian'] = $ujian->get($data['search']->kd_pendaftaran)->getRow();
                 endif;
             endif;
@@ -100,7 +99,7 @@ class Pendaftaran extends BaseController
             session()->setFlashdata('error', 'silahkan lengkapi profile terlebih dahulu');
             return redirect()->to('myprofile');
         } else {
-            sendNotif(session()->get('username'), $_POST['nik'], "Mendaftar seminar kerja praktik", "pendaftaran/seminar");
+            // sendNotif(session()->get('username'), $_POST['nik'], "Mendaftar seminar kerja praktik", "pendaftaran/seminar");
             // upload file
             $user = $this->getUser(session()->get('username'));
             $krs = $this->request->getFile('berkas_krs');
@@ -348,10 +347,10 @@ class Pendaftaran extends BaseController
         $jenis = isset($_POST['jenis']) ? $_POST['jenis'] : 'KP';
         $url = $jenis == "KP" ? 'pendaftaran/seminar' : 'pendaftaran/pendadaran';
         $status = $jenis == "KP" ? "SEMINAR" : "PENDADARAN";
-        if ($_POST['status'] == 'acc') :
-            sendNotif(session()->get('username'), $_POST['npm'], "ACC pedaftaran $status kamu", $url);
-            sendNotif($_POST['npm'], "SKP001", "Mendaftar $status, silahkan masukan jadwal ujian", $url);
-        endif;
+        // if ($_POST['status'] == 'acc') :
+        //     sendNotif(session()->get('username'), $_POST['npm'], "ACC pedaftaran $status kamu", $url);
+        //     sendNotif($_POST['npm'], "SKP001", "Mendaftar $status, silahkan masukan jadwal ujian", $url);
+        // endif;
         $data = [
             'status' => $_POST['status']
         ];
@@ -504,7 +503,7 @@ class Pendaftaran extends BaseController
     public function entryujiankp()
     {
         // dd($_POST['tgl']);
-        sendNotif($_POST['npm'], "Seminar Kerja Praktik", "seminar ujian kerja praktik kamu sudah di entry jadwal oleh prodi silahkan untuk mengeceknya", "pendaftaran/seminar");
+        // sendNotif($_POST['npm'], "Seminar Kerja Praktik", "seminar ujian kerja praktik kamu sudah di entry jadwal oleh prodi silahkan untuk mengeceknya", "pendaftaran/seminar");
         $ujian = new UjianModel();
         $pendaftaran_model = new PendaftaranModel();
         $pengajuan = new PengajuanModel();

@@ -344,7 +344,7 @@ use App\Models\BimbinganModel;
                                              $total = $bimbingan->getBimbingan($p->npm,'KP')->getResult();
                                              $total = count($total);
                                              $note = $bimbingan->getBimbingan($p->npm,'KP','DESC')->getRow();
-                                             $note = $note->keterangan == null ? 'Tidak ada keterangan':$note->keterangan;
+                                             $note = $note ? $note->keterangan == null ? 'Tidak ada keterangan':$note->keterangan : 'Tidak ada keterangan';
                                              echo 'jumlah : '.$total.', catatan : '.$note;
                                             ?>
                                         </td>

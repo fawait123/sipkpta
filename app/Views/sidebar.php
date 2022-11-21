@@ -218,12 +218,12 @@
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -340,12 +340,12 @@
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <!-- <li class="nav-item">
@@ -663,7 +663,7 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
                                 Pendaftaran
@@ -677,14 +677,14 @@
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
-                    </li> -->
+                    </li>
                     <!--<li class="nav-item">-->
                     <!--    <a href="#" class="nav-link">-->
                     <!--        <p>-->
@@ -783,7 +783,7 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
                                 Pendaftaran
@@ -797,14 +797,14 @@
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
