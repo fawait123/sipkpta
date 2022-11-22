@@ -171,7 +171,7 @@ class Pendaftaran extends BaseController
             session()->setFlashdata('pesan', 'Lengkapi data diri terlebih dahulu');
             return redirect()->to('myprofile');
         } else {
-            sendNotif(session()->get('username'), $_POST['nik'], "Mendaftar pendadaran tugas akhir", "pendaftaran/pendadaran");
+            // sendNotif(session()->get('username'), $_POST['nik'], "Mendaftar pendadaran tugas akhir", "pendaftaran/pendadaran");
             // upload file
             $user = $this->getUser(session()->get('username'));
             $krs = $this->request->getFile('berkas_krs');
