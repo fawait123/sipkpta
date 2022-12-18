@@ -347,4 +347,14 @@ class PengajuanModel extends Model
         $builder->whereIn('tb_pengajuan.status_perpanjang', $status_perpanjang);
         return $builder->get();
     }
+
+
+    public function getPengajuan2($id)
+    {
+        $builder = $this->db->table('tb_pengajuan');
+        $builder->join('tb_pendaftaran', 'tb_pendaftaran.no_pengajuan = tb_pengajuan.no_pengajuan', 'left');
+        $builder->join('tb_mahasiswa', 'tb_pengajuan.npm = tb_mahasiswa.npm', 'left');
+        $builder->where('tb_pengajuan.no_pengajuan', $id);
+        return $builder->get();
+    }
 }
