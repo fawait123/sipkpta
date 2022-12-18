@@ -318,7 +318,7 @@ use App\Models\BimbinganModel;
                                     <?php if (session()->get('role') == "dosen") : ?>
                                         <th>Status ACC</th>
                                     <?php endif; ?>
-                                    <?php if (session()->get('role') == "sekprod") : ?>
+                                    <?php if (session()->get('role') == "sekprod" || session()->get('role') == "admin") : ?>
                                         <th>Aksi</th>
                                     <?php endif; ?>
                                 </tr>
@@ -341,9 +341,9 @@ use App\Models\BimbinganModel;
                                         <td>
                                             <?php 
                                              $bimbingan = new BimbinganModel();
-                                             $total = $bimbingan->getBimbingan($p->npm,'KP')->getResult();
+                                             $total = $bimbingan->getBimbingan($p->npm,'TA')->getResult();
                                              $total = count($total);
-                                             $note = $bimbingan->getBimbingan($p->npm,'KP','DESC')->getRow();
+                                             $note = $bimbingan->getBimbingan($p->npm,'TA','DESC')->getRow();
                                              $note = $note ? $note->keterangan == null ? 'Tidak ada keterangan':$note->keterangan : 'Tidak ada keterangan';
                                              echo 'jumlah : '.$total.', catatan : '.$note;
                                             ?>
@@ -384,7 +384,7 @@ use App\Models\BimbinganModel;
                                                <?php } ?>
                                             </td>
                                         <?php endif; ?>
-                                        <?php if (session()->get('role') == "sekprod") : ?>
+                                        <?php if (session()->get('role') == "sekprod" || session()->get('role') == "admin") : ?>
                                             <td>
                                                 <button type="button" class="btn btn-primary btn-sm entry-ujian" data-toggle="modal" data-target="#modal-entry-penguji" data-kd-pendaftaran="<?= $p->kd_pendaftaran ?>" data-tgl="<?= $p->tgl ?>" data-tempat="<?= $p->tempat ?>" data-npm="<?= $p->npm ?>">Entry</button>
                                                 <?php if($p->is_entry==1): ?>
@@ -412,7 +412,7 @@ use App\Models\BimbinganModel;
                                             Status ACC
                                         </th>
                                     <?php endif; ?>
-                                    <?php if (session()->get('role') == "sekprod") : ?>
+                                    <?php if (session()->get('role') == "sekprod" || session()->get('role') == "admin") : ?>
                                         <th>Aksi</th>
                                     <?php endif; ?>
                                 </tr>

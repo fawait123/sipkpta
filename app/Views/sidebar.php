@@ -599,6 +599,28 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <p>
+                                Pendaftaran
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= site_url(''); ?>/pendaftaran/seminar" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Seminar Kerja Praktik</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Pendadaran Tugas Akhir</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php } elseif ($role == "dosen") {
                 ?>
                     <li class="nav-item">

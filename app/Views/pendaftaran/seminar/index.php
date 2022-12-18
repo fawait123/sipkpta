@@ -209,7 +209,7 @@ use App\Models\BimbinganModel;
                                     <?php if (session()->get('role') == "dosen") : ?>
                                         <th>Status ACC</th>
                                     <?php endif; ?>
-                                    <?php if (session()->get('role') == "sekprod") : ?>
+                                    <?php if (session()->get('role') == "sekprod" || session()->get('role') == "admin") : ?>
                                         <th>Aksi</th>
                                     <?php endif; ?>
                                 </tr>
@@ -285,7 +285,7 @@ use App\Models\BimbinganModel;
                                                 ?>
                                             </td>
                                         <?php endif; ?>
-                                        <?php if (session()->get('role') == "sekprod") : ?>
+                                        <?php if (session()->get('role') == "sekprod" || session()->get('role') == "admin") : ?>
                                             <td>
                                                 <a href="" class="btn btn-primary btn-sm entry-ujian" data-toggle="modal" data-target="#modal-entry-penguji" data-kd-pendaftaran="<?= $p->kd_pendaftaran ?>" data-npm="<?= $p->npm ?>" data-tgl="<?= $p->tgl ?>" data-tempat="<?= $p->tempat ?>" data-no_pengajuan="<?= $p->no_pengajuan ?>">Entry</a>
                                                 <?php if ($p->is_entry == 1) : ?>
@@ -314,7 +314,7 @@ use App\Models\BimbinganModel;
                                             Status ACC
                                         </th>
                                     <?php endif; ?>
-                                    <?php if (session()->get('role') == "sekprod") : ?>
+                                    <?php if (session()->get('role') == "sekprod" || session()->get('role') == "admin") : ?>
                                         <th>Aksi</th>
                                     <?php endif; ?>
                                 </tr>
@@ -387,7 +387,7 @@ use App\Models\BimbinganModel;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Default Modal</h4>
+                    <h4 class="modal-title">Entry Ujian</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

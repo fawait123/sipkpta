@@ -155,6 +155,7 @@ class Pendaftaran extends BaseController
                     'berkas_krs' => "uploads/pendaftaran/pendadaran/$user->npm-$user->nama_mahasiswa/" . $new_krs,
                     'berkas_pembayaran' => "uploads/pendaftaran/pendadaran/$user->npm-$user->nama_mahasiswa/" . $new_pembayaran,
                     'status' => 'tidak acc',
+                    'status_pendaftaran'=>'Terdaftar'
                 ];
                 $pendaftaran->insert($data);
                 session()->setFlashdata('pesan', 'Pendaftaran seminar berhasil dikirim');
@@ -331,6 +332,7 @@ class Pendaftaran extends BaseController
                     'berkas_pustaka' => "uploads/pendaftaran/pendadaran/$user->npm-$user->nama_mahasiswa/" . $new_pustaka,
                     'ukuran_toga' => $_POST['ukuran_toga'],
                     'status' => 'tidak acc',
+                    'status_pendaftaran'=>'Terdaftar'
                 ];
                 $pendaftaran->insert($data);
 
@@ -456,7 +458,8 @@ class Pendaftaran extends BaseController
         $pendaftaran = [
             'tgl' => date('Y-m-d H:i:s', strtotime($_POST['tgl'])),
             'tempat' => $_POST['tempat'],
-            'is_entry' => 1
+            'is_entry' => 1,
+            'status_pendaftaran'=>'Terjadwal'
         ];
         $id = [
             'kd_pendaftaran' => $_POST['kd_pendaftaran']
@@ -511,7 +514,8 @@ class Pendaftaran extends BaseController
         $pendaftaran = [
             'tgl' => date('Y-m-d H:i:s', strtotime($_POST['tgl'])),
             'tempat' => $_POST['tempat'],
-            'is_entry' => 1
+            'is_entry' => 1,
+            'status_pendaftaran'=>'Terjadwal'
         ];
         $id = [
             'kd_pendaftaran' => $_POST['kd_pendaftaran']
