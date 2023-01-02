@@ -468,7 +468,7 @@ use App\Models\BimbinganModel;
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="modal-body">
+            <div class="modal-body" id="modal-body-pendaftaran">
                 <p>One fine body&hellip;</p>
             </div>
         </div>
@@ -612,7 +612,7 @@ use App\Models\BimbinganModel;
             </ul>
             `;
 
-            $('#modal-body').html(detail);
+            $('#modal-body-pendaftaran').html(detail);
         });
 
         $(".entry-ujian").on('click', function() {
