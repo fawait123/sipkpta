@@ -313,7 +313,7 @@ use App\Models\BimbinganModel;
                                         <th>Nama Dosen</th>
                                     <?php endif; ?>
                                     <th>Detail Bimbingan</th>
-                                    <th>Detail</th>
+                                    <th>Detail Judul</th>
                                     <th>Detail Ujian</th>
                                     <?php if (session()->get('role') == "dosen") : ?>
                                         <th>Status ACC</th>
