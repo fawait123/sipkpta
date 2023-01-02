@@ -599,21 +599,47 @@ use App\Models\BimbinganModel;
             </script>
 <script>
     $(document).ready(function() {
-        $(".detail-pendaftaran").on('click', function() {
-            let judul = $(this).data('judul');
-            let studi = $(this).data('studi-kasus');
-            let judul_pendaftaran = $(this).data('judul-pendaftaran')
+        // $(".detail-pendaftaran").on('click', function() {
+        //     let judul = $(this).data('judul');
+        //     let studi = $(this).data('studi-kasus');
+        //     let judul_pendaftaran = $(this).data('judul-pendaftaran')
 
+        //     let detail = `
+        //     <ul class="list-group">
+        //         <li class="list-group-item">Judul Pendaftaran : ${judul_pendaftaran}</li>
+        //         <li class="list-group-item">Judul : ${judul}</li>
+        //         <li class="list-group-item">Studi Kasus : ${studi}</li>
+        //     </ul>
+        //     `;
+
+        //     $('#modal-body-pendaftaran').html(detail);
+        // });
+
+        $('#modal-detail-pendaftaran').on('show.bs.modal', function (event) {
+            var target = $(event.relatedTarget)
+            let judul = $(target).data('judul');
+            let studi = $(target).data('studi-kasus');
+            let judul_pendaftaran = $(target).data('judul-pendaftaran');
+            let check = '';
+            let note = '';
+            if (judul.toLowerCase() == judul_pendaftaran.toLowerCase()) {
+                check = '<i class="fa fa-check text-primary"></i>';
+                note = '<i class="fa fa-check text-primary"></i> Judul Proposal dengan judul yang diajukan sama.';
+            } else {
+                check = '<i class="fa fa-ban text-danger"></i>';
+                note = '<i class="fa fa-ban text-danger"></i> Judul Proposal dengan judul yang diajukan tidak sama.';
+            }
             let detail = `
             <ul class="list-group">
-                <li class="list-group-item">Judul Pendaftaran : ${judul_pendaftaran}</li>
-                <li class="list-group-item">Judul : ${judul}</li>
+                <li class="list-group-item">Judul : ${judul} ${check}</li>
+                <li class="list-group-item">Judul Pendaftaran : ${judul_pendaftaran} ${check}</li>
+                <li class="list-group-item">Catatan : ${note}</li>
                 <li class="list-group-item">Studi Kasus : ${studi}</li>
             </ul>
             `;
 
             $('#modal-body-pendaftaran').html(detail);
-        });
+        })
 
         $(".entry-ujian").on('click', function() {
             let kode = $(this).data('kd-pendaftaran');
