@@ -240,7 +240,7 @@ use App\Models\BimbinganModel;
                                     <div class="timeline-body">
                                     <ul class="list-group mb-3">
                                     <li class="list-group-item">Tempat : <?= $search->tempat?></li>
-                                        <li class="list-group-item">Tanggal : <?= date('m D Y',strtotime($search->tgl)) ?> </li>
+                                        <li class="list-group-item">Tanggal : <?= date('d M Y',strtotime($search->tgl)) ?> </li>
                                         <li class="list-group-item">Waktu : <?= date('H:i',strtotime($search->tgl)) ?> WIB</li>
                                         <li class="list-group-item">Judul : <?= $search->no_perubahan != '' && $search->status_dosen=='acc' && $search->status_prodi=='acc'?$search->judul_perubahan : $search->judul ?> </li>
                                         <li class="list-group-item">Judul Pendaftaran : <?= $search->judul_pendaftaran ?> </li>

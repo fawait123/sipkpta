@@ -203,11 +203,11 @@ class Pendaftaran extends BaseController
                 $size = $sertifikat->getSizeByUnit('kb');
             }
             if (!empty($abstrak)) {
-                $new_abstrak = $user->npm . '_' . $user->nama_mahasiswa . '_ABSTRAK.pdf';
+                $new_abstrak = $user->npm . '_' . $user->nama_mahasiswa . '_ABSTRAK.'.$abstrak->getExtension();
                 $size = $abstrak->getSizeByUnit('kb');
             }
             if (!empty($pustaka)) {
-                $new_pustaka = $user->npm . '_' . $user->nama_mahasiswa . '_PUSTAKA.pdf';
+                $new_pustaka = $user->npm . '_' . $user->nama_mahasiswa . '_PUSTAKA.'.$pustaka->getExtension();
                 $size = $pustaka->getSizeByUnit('kb');
             }
 
