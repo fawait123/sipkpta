@@ -152,8 +152,8 @@ class Pendaftaran extends BaseController
                     'npm' => $_POST['npm'],
                     'nik' => $_POST['nik'],
                     'jenis' => 'KP',
-                    'berkas_krs' => "uploads/pendaftaran/pendadaran/$user->npm-$user->nama_mahasiswa/" . $new_krs,
-                    'berkas_pembayaran' => "uploads/pendaftaran/pendadaran/$user->npm-$user->nama_mahasiswa/" . $new_pembayaran,
+                    'berkas_krs' => "uploads/pendaftaran/seminar/$user->npm-$user->nama_mahasiswa/" . $new_krs,
+                    'berkas_pembayaran' => "uploads/pendaftaran/seminar/$user->npm-$user->nama_mahasiswa/" . $new_pembayaran,
                     'status' => 'tidak acc',
                     'status_pendaftaran'=>'Terdaftar'
                 ];
