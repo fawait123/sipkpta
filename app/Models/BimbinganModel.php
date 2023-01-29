@@ -113,7 +113,7 @@ class BimbinganModel extends Model
     public function getPengajuan($username, $jenis)
     {
         $builder = $this->db->table('tb_pengajuan');
-        $builder->join('tb_ploting_pembimbing', 'tb_pengajuan.no_pengajuan=tb_ploting_pembimbing.no_pengajuan', 'left');
+        $builder->join('tb_disposisi', 'tb_pengajuan.no_pengajuan=tb_disposisi.no_pengajuan', 'left');
         $builder->where('tb_pengajuan.npm', $username);
         $builder->where('tb_pengajuan.jenis', $jenis);
         return $builder->get();
