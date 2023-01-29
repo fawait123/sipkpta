@@ -359,9 +359,32 @@ use App\Models\BimbinganModel;
                                             <?php
                                                 $judul = $p->no_perubahan != '' && $p->status_dosen == 'acc' && $p->status_prodi == 'acc' ? $p->judul_perubahan : $p->judul;
                                                 $judul_pendaftaran = $p->judul_pendaftaran;
-                                                if (strtolower($judul) != strtolower($judul_pendaftaran)) {
+                                                $judul = explode(' ',$judul);
+                                                $judul = join('',$judul);
+                                                $judul_pendaftaran = $p->judul_pendaftaran;
+                                                $judul_pendaftaran = explode(' ',$judul_pendaftaran);
+                                                $judul_pendaftaran = join('',$judul_pendaftaran);
+                                                if (trim(strtolower($judul)) != trim(strtolower($judul_pendaftaran))) {
                                                 ?>
-                                                    <button type="button" class="btn btn-danger konfirmasi" data-id="<?=$p->kd_pendaftaran?>" data-note="<?=$p->note?>" data-status="<?=$p->status?>" data-toggle="modal" data-target="#modal-konfirmasi">Konfirmasi</button>
+                                                <?php if($p->status == 'acc'): ?>
+                                                        <form action="<?= base_url('pendaftaran/status') ?>" method="post">
+                                                        <input type="hidden" name="npm" value="<?= $p->npm ?>">
+                                                        <input type="hidden" name="kd_pendaftaran" value="<?= $p->kd_pendaftaran ?>">
+                                                        <div class="custom-control custom-radio">
+                                                            <input class="custom-control-input" type="radio" id="acc<?= $no ?>" name="status" value="acc" <?= $p->status == "acc" ? 'checked' : '' ?>>
+                                                            <label for="acc<?= $no ?>" class="custom-control-label">ACC</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio">
+                                                            <input class="custom-control-input" type="radio" id="tidak-acc<?= $no ?>" name="status" value="tidak acc" <?= $p->status == "tidak acc" ? 'checked' : '' ?>>
+                                                            <label for="tidak-acc<?= $no ?>" class="custom-control-label">Tidak ACC</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i></button>
+                                                        </div>
+                                                    </form>
+                                                    <?php else: ?>
+                                                        <button type="button" class="btn btn-danger konfirmasi" data-id="<?=$p->kd_pendaftaran?>" data-note="<?=$p->note?>" data-status="<?=$p->status?>" data-toggle="modal" data-target="#modal-konfirmasi">Konfirmasi</button>
+                                                    <?php endif; ?>
                                                 <?php
                                                 } else {
                                                     ?>
@@ -618,11 +641,17 @@ use App\Models\BimbinganModel;
         $('#modal-detail-pendaftaran').on('show.bs.modal', function (event) {
             var target = $(event.relatedTarget)
             let judul = $(target).data('judul');
+            let judul_ori = $(target).data('judul');
             let studi = $(target).data('studi-kasus');
             let judul_pendaftaran = $(target).data('judul-pendaftaran');
+            let judul_pendaftaran_ori = $(target).data('judul-pendaftaran');
             let check = '';
             let note = '';
-            if (judul.toLowerCase() == judul_pendaftaran.toLowerCase()) {
+            judul = judul.split(' ')
+            judul = judul.join('').toLowerCase();
+            judul_pendaftaran = judul_pendaftaran.split(' ')
+            judul_pendaftaran = judul_pendaftaran.join('').toLowerCase();
+            if (judul.includes(judul_pendaftaran)) {
                 check = '<i class="fa fa-check text-primary"></i>';
                 note = '<i class="fa fa-check text-primary"></i> Judul Proposal dengan judul yang diajukan sama.';
             } else {
@@ -631,8 +660,8 @@ use App\Models\BimbinganModel;
             }
             let detail = `
             <ul class="list-group">
-                <li class="list-group-item">Judul : ${judul} ${check}</li>
-                <li class="list-group-item">Judul Pendaftaran : ${judul_pendaftaran} ${check}</li>
+                <li class="list-group-item">Judul : ${judul_ori} ${check}</li>
+                <li class="list-group-item">Judul Pendaftaran : ${judul_pendaftaran_ori} ${check}</li>
                 <li class="list-group-item">Catatan : ${note}</li>
                 <li class="list-group-item">Studi Kasus : ${studi}</li>
             </ul>
