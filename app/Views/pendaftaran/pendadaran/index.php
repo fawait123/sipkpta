@@ -57,16 +57,19 @@ use App\Models\BimbinganModel;
                         <div class="form-group">
                             <label for="ukuran_toga">Ukuran Toga</label>
                             <div class="form-group">
-                                <input type="radio" value="L" id="m" name="ukuran_toga"> <label for="m">M</label> 
+                                <input type="radio" value="S" id="s" name="ukuran_toga"> <label for="s">S</label> 
+                            </div>
+                            <div class="form-group">
+                                <input type="radio" value="M" id="m" name="ukuran_toga"> <label for="m">M</label> 
                             </div>
                             <div class="form-group">
                                 <input type="radio" value="L" name="ukuran_toga" id="l"> <label for="l">L</label> 
                             </div>
                             <div class="form-group">
-                                <input type="radio" value="L" name="ukuran_toga" id="xl"> <label for="xl">XL</label> 
+                                <input type="radio" value="XL" name="ukuran_toga" id="xl"> <label for="xl">XL</label> 
                             </div>
                             <div class="form-group">
-                                <input type="radio" value="L" name="ukuran_toga" id="xxl"> <label for="xxl">XXL</label> 
+                                <input type="radio" value="XXL" name="ukuran_toga" id="xxl"> <label for="xxl">XXL</label> 
                             </div>
                         </div>
                         <div class="form-group">

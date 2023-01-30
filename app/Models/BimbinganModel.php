@@ -112,10 +112,12 @@ class BimbinganModel extends Model
 
     public function getPengajuan($username, $jenis)
     {
+        $status_perpanjang = ['Baru','Perpanjang'];
         $builder = $this->db->table('tb_pengajuan');
         $builder->join('tb_disposisi', 'tb_pengajuan.no_pengajuan=tb_disposisi.no_pengajuan', 'left');
         $builder->where('tb_pengajuan.npm', $username);
         $builder->where('tb_pengajuan.jenis', $jenis);
+        $builder->whereIn('tb_pengajuan.status_perpanjang',$status_perpanjang);
         return $builder->get();
     }
 
