@@ -101,7 +101,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>reviewproposal/tanggalreview" class="nav-link">
+                                <a href="<?= site_url(''); ?>reviewProposal/tanggalreview" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tanggal Review</p>
                                 </a>
@@ -241,13 +241,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>perubahanjudul/kp" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/kp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>perubahanjudul/ta" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/ta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
