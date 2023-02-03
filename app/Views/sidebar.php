@@ -51,14 +51,14 @@
                 <?php if ($role == "kaprodi") {
                 ?>
                     <li class="nav-item">
-                        <a href="<?= site_url(''); ?>/Dashboard" class="nav-link">
+                        <a href="<?= site_url(''); ?>dashboard" class="nav-link">
                             <p>
                                 Dashboard
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= site_url(''); ?>/Register" class="nav-link">
+                        <a href="<?= site_url(''); ?>register" class="nav-link">
                             <p>
                                 Data User
                             </p>
@@ -73,19 +73,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/AccPengajuan/accKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>accpengajuan/acckp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/AccPengajuan/accTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>accpengajuan/accta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Perpanjang/pengajuanPerpanjang" class="nav-link">
+                                <a href="<?= site_url(''); ?>perpanjang/pengajuanperpanjang" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Perpanjang</p>
                                 </a>
@@ -101,19 +101,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/ReviewProposal/tanggalReview" class="nav-link">
+                                <a href="<?= site_url(''); ?>reviewproposal/tanggalreview" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tanggal Review</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Ploting/plotingKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>ploting/plotingkp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Ploting/plotingTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>ploting/plotingta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -129,19 +129,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Disposisi/disposisiKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>disposisi/disposisikp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Disposisi/disposisiTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>disposisi/disposisita" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Perpanjang/disposisi" class="nav-link">
+                                <a href="<?= site_url(''); ?>perpanjang/disposisi" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Perpanjang</p>
                                 </a>
@@ -157,25 +157,25 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Pengajuan/rekapPengajuanKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>pengajuan/rekappengajuankp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Rekap Pengajuan KP</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Pengajuan/rekapPengajuanTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>pengajuan/rekappengajuanta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Rekap Pengajuan TA</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Ploting/rekapPloting" class="nav-link">
+                                <a href="<?= site_url(''); ?>ploting/rekapploting" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Rekap Ploting</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Disposisi/rekapPembimbing" class="nav-link">
+                                <a href="<?= site_url(''); ?>disposisi/rekappembimbing" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Rekap Disposisi</p>
                                 </a>
@@ -191,13 +191,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbingankp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbinganta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -213,13 +213,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/seminar" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/seminar" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
@@ -235,19 +235,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/review-tanggal" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/review-tanggal" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tanggal Perubahan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/PerubahanJudul/kp" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahanjudul/kp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/PerubahanJudul/ta" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahanjudul/ta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -258,7 +258,7 @@
                 } elseif ($role == "sekprod") {
                 ?>
                     <li class="nav-item">
-                        <a href="<?= site_url(''); ?>/Pengajuan/pengajuanSekprod" class="nav-link">
+                        <a href="<?= site_url(''); ?>pengajuan/pengajuansekprod" class="nav-link">
                             <p>
                                 Tambah Pengajuan KP
                             </p>
@@ -273,13 +273,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Nilai/nilaiKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>nilai/nilaikp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Nilai/nilaiTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>nilai/nilaita" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -295,13 +295,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Proposal/proposalKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>proposal/proposalkp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Proposal/proposalTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>proposal/proposalta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -317,7 +317,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Disposisi/disposisi" class="nav-link">
+                                <a href="<?= site_url(''); ?>disposisi/disposisi" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>
                                         Rekap Disposisi
@@ -335,13 +335,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/seminar" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/seminar" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
@@ -379,13 +379,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbingankp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbinganta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -401,13 +401,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/kp" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/kp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/ta" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/ta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -417,7 +417,7 @@
                 <?php
                 } elseif ($role == "admin") { ?>
                     <li class="nav-item">
-                        <a href="<?= site_url(''); ?>/Dashboard" class="nav-link">
+                        <a href="<?= site_url(''); ?>dashboard" class="nav-link">
                             <p>
                                 Dashboard
                             </p>
@@ -432,19 +432,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Mahasiswa" class="nav-link">
+                                <a href="<?= site_url(''); ?>mahasiswa" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Data Mahasiswa</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Dosen" class="nav-link">
+                                <a href="<?= site_url(''); ?>dosen" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Data Dosen</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Topik" class="nav-link">
+                                <a href="<?= site_url(''); ?>topik" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Data Topik</p>
                                 </a>
@@ -460,13 +460,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/TopikKuota/kuotaKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>topikkuota/kuotakp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/TopikKuota/kuotaTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>topikkuota/kuotata" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -474,7 +474,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= site_url(''); ?>/Persiapan" class="nav-link">
+                        <a href="<?= site_url(''); ?>persiapan" class="nav-link">
                             <p>
                                 Persiapan Pengajuan
                             </p>
@@ -489,19 +489,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Berkas/berkasKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>berkas/berkaskp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Berkas/berkasTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>berkas/berkasta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Perpanjang/berkas" class="nav-link">
+                                <a href="<?= site_url(''); ?>perpanjang/berkas" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Perpanjang</p>
                                 </a>
@@ -546,7 +546,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Disposisi/disposisi" class="nav-link">
+                                <a href="<?= site_url(''); ?>disposisi/disposisi" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>
                                         Rekap Disposisi
@@ -564,13 +564,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbingankp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbinganta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -586,13 +586,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/kp" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/kp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/ta" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/ta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -608,13 +608,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/seminar" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/seminar" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
@@ -632,13 +632,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/ReviewProposal/reviewKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>reviewproposal/reviewkp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/ReviewProposal/reviewTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>reviewproposal/reviewta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -654,7 +654,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Disposisi/disposisi" class="nav-link">
+                                <a href="<?= site_url(''); ?>disposisi/disposisi" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>
                                         Rekap Disposisi
@@ -672,13 +672,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbingankp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbinganta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -694,13 +694,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/seminar" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/seminar" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
@@ -738,13 +738,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/kp" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/kp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/ta" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/ta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -755,7 +755,7 @@
                 } elseif ($role == "mahasiswa") {
                 ?>
                     <li class="nav-item">
-                        <a href="<?= site_url(''); ?>/DataDiri" class="nav-link">
+                        <a href="<?= site_url(''); ?>datadiri" class="nav-link">
                             <p>
                                 Data Diri
                             </p>
@@ -770,13 +770,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Pengajuan/pengajuanKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>pengajuan/pengajuankp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Pengajuan/pengajuanTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>pengajuan/pengajuanta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -792,13 +792,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganKP" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbingankp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/Bimbingan/bimbinganTA" class="nav-link">
+                                <a href="<?= site_url(''); ?>bimbingan/bimbinganta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -814,13 +814,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/seminar" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/seminar" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/pendaftaran/pendadaran" class="nav-link">
+                                <a href="<?= site_url(''); ?>pendaftaran/pendadaran" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendadaran Tugas Akhir</p>
                                 </a>
@@ -836,13 +836,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/kp" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/kp" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Kerja Praktik</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url(''); ?>/perubahan/ta" class="nav-link">
+                                <a href="<?= site_url(''); ?>perubahan/ta" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tugas Akhir</p>
                                 </a>
@@ -850,7 +850,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= site_url(''); ?>/Perpanjang" class="nav-link">
+                        <a href="<?= site_url(''); ?>perpanjang" class="nav-link">
                             <p>
                                 Perpanjang
                             </p>
