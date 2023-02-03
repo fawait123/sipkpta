@@ -45,7 +45,6 @@
     <!-- select 2 -->
     <link rel="stylesheet" href="<?= base_url('select2/dist/css/select2.min.css') ?>">
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-
     <script type="text/javascript">
         window.onload = function() {
             jam();
