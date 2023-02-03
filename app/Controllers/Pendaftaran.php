@@ -159,10 +159,12 @@ class Pendaftaran extends BaseController
                 ];
                 $pendaftaran->insert($data);
                 session()->setFlashdata('pesan', 'Pendaftaran seminar berhasil dikirim');
-                return redirect()->to('pendaftaran/seminar');
+                // return redirect()->to('pendaftaran/seminar');
+                return 'success';
             } else {
                 session()->setFlashdata('error', 'terjadi Error pada saat upload file');
-                return redirect()->to('pendaftaran/seminar');
+                // return redirect()->to('pendaftaran/seminar');
+                return 'error';
             }
         }
     }
@@ -337,10 +339,12 @@ class Pendaftaran extends BaseController
                 $pendaftaran->insert($data);
 
                 session()->setFlashdata('pesan', 'Pendaftaran pendadaran berhasil dikirim');
-                return redirect()->to('pendaftaran/pendadaran');
+                // return redirect()->to('pendaftaran/pendadaran');
+                return 'success';
             } else {
                 session()->setFlashdata('error', 'terjadi Error pada saat upload file');
-                return redirect()->to('pendaftaran/pendadaran');
+                // return redirect()->to('pendaftaran/pendadaran');
+                return 'error';
             }
         }
     }

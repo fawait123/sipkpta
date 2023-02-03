@@ -33,7 +33,7 @@ use App\Models\BimbinganModel;
                             <input type="file" name="berkas_pembayaran" id="berkas_pembayaran" class="form-control">
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit">Kirim</button>
                         </div>
                     </form>
                 </div>
@@ -90,6 +90,42 @@ use App\Models\BimbinganModel;
                         unhighlight: function(element, errorClass, validClass) {
                             $(element).removeClass('is-invalid');
                         }
+                    });
+                    $('#form-seminar').on('submit', function(event){
+                        event.preventDefault();
+                        let postData = new FormData($(this)[0]);
+                        postData.append('berkas_krs', $('input[name=berkas_krs]')[0].files[0]);
+                        postData.append('berkas_pembayaran', $('input[name=berkas_pembayaran]')[0].files[0]);
+                        $.ajax({
+                            url:"<?=base_url('pendaftaran/submitseminar')?>",
+                            type:"post",
+                            processData: false,
+                            contentType: false,
+                            data:postData,
+                            beforeSend: function() {
+                                $("#btn-submit").attr("disabled",true)
+                                $("#btn-submit").html("Loading...")
+                            },
+                            success:function(res){
+                                console.log(res)
+                                if(res == "success"){
+                                    window.location.reload()
+                                }else{
+                                    toastr.info('Terjadi kesalahan saat mengunggah file');
+                                }
+                            },
+                            error: function(xhr) { // if error occured
+                                let err = eval("(" + xhr.responseText + ")");
+                                toastr.info(err.message);                                
+                                $("#btn-submit").attr("disabled",false)
+                                $("#btn-submit").html("Kirim")
+                            },
+                            // complete: function() {
+                            //     $("#btn-submit").attr("disabled",false)
+                            //     $("#btn-submit").html("Kirim")
+                            // },
+                        })
+                        
                     });
                 });
             </script>
@@ -700,12 +736,16 @@ use App\Models\BimbinganModel;
 </script>
 <?php if (session()->getFlashdata('pesan')) : ?>
     <script>
-        toastr.info('<?= session()->getFlashdata('pesan') ?>')
+        $(document).ready(function(){
+            toastr.info('<?= session()->getFlashdata('pesan') ?>')
+        })
     </script>
 <?php endif; ?>
 <?php if (session()->getFlashdata('error')) : ?>
     <script>
-        toastr.error('<?= session()->getFlashdata('error') ?>')
+        $(document).ready(function(){
+            toastr.error('<?= session()->getFlashdata('error') ?>')
+        })
     </script>
 <?php endif; ?>
 <?= $this->endsection() ?>

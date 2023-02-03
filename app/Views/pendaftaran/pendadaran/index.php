@@ -73,7 +73,7 @@ use App\Models\BimbinganModel;
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit">Kirim</button>
                         </div>
                     </form>
                 </div>
@@ -177,6 +177,49 @@ use App\Models\BimbinganModel;
                                 $(element).removeClass('is-invalid');
                             }
                         });
+                    $('#form-pendadaran').on('submit', function(event){
+                        event.preventDefault();
+                        let postData = new FormData($(this)[0]);
+                        postData.append('berkas_krs', $('input[name=berkas_krs]')[0].files[0]);
+                        postData.append('berkas_pembayaran', $('input[name=berkas_pembayaran]')[0].files[0]);
+                        postData.append('berkas_krs', $('input[name=berkas_krs]')[0].files[0]);
+                        postData.append('berkas_pembayaran', $('input[name=berkas_pembayaran]')[0].files[0]);
+                        postData.append('berkas_toefle', $('input[name=berkas_toefle]')[0].files[0]);
+                        postData.append('berkas_rekomendasi', $('input[name=berkas_rekomendasi]')[0].files[0]);
+                        postData.append('berkas_sertifikat', $('input[name=berkas_sertifikat]')[0].files[0]);
+                        postData.append('berkas_abstrak', $('input[name=berkas_abstrak]')[0].files[0]);
+                        postData.append('berkas_pustaka', $('input[name=berkas_pustaka]')[0].files[0]);
+                        $.ajax({
+                            url:"<?= base_url('pendaftaran/submitpendadaran') ?>",
+                            type:"post",
+                            processData: false,
+                            contentType: false,
+                            data:postData,
+                            beforeSend: function() {
+                                $("#btn-submit").attr("disabled",true)
+                                $("#btn-submit").html("Loading...")
+                            },
+                            success:function(res){
+                                console.log(res)
+                                if(res == "success"){
+                                    window.location.reload()
+                                }else{
+                                    toastr.info('Terjadi kesalahan saat mengunggah file');
+                                }
+                            },
+                            error: function(xhr) { // if error occured
+                                let err = eval("(" + xhr.responseText + ")");
+                                toastr.info(err.message);
+                                $("#btn-submit").attr("disabled",false)
+                                $("#btn-submit").html("Kirim")
+                            },
+                            // complete: function() {
+                            //     $("#btn-submit").attr("disabled",false)
+                            //     $("#btn-submit").html("Kirim")
+                            // },
+                        })
+                        
+                    });
                 });
             </script>
         <?php else : ?>
@@ -770,12 +813,16 @@ use App\Models\BimbinganModel;
 </script>
 <?php if (session()->getFlashdata('pesan')) : ?>
     <script>
-        toastr.info('<?=session()->getFlashdata('pesan')?>')
+        $(document).ready(function(){
+            toastr.info('<?=session()->getFlashdata('pesan')?>')
+        })
     </script>
 <?php endif; ?>
 <?php if (session()->getFlashdata('error')) : ?>
     <script>
-        toastr.error('<?=session()->getFlashdata('error')?>')
+        $(document).ready(function(){
+            toastr.error('<?=session()->getFlashdata('error')?>')
+        })
     </script>
 <?php endif; ?>
 <?= $this->endsection() ?>
