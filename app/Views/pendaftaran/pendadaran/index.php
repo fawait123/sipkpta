@@ -455,7 +455,7 @@ use App\Models\BimbinganModel;
                                         <?php endif; ?>
                                         <?php if (session()->get('role') == "sekprod" || session()->get('role') == "admin") : ?>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-sm entry-ujian" data-toggle="modal" data-target="#modal-entry-penguji" data-kd-pendaftaran="<?= $p->kd_pendaftaran ?>" data-tgl="<?= $p->tgl ?>" data-tempat="<?= $p->tempat ?>" data-npm="<?= $p->npm ?>">Entry</button>
+                                                <button type="button" class="btn btn-primary btn-sm entry-ujian" data-toggle="modal" data-target="#modal-entry-penguji" data-kd-pendaftaran="<?= $p->kd_pendaftaran ?>" data-tgl="<?= $p->tgl ?>" data-tempat="<?= $p->tempat ?>" data-npm="<?= $p->npm ?>"  data-nik="<?= $p->nik ?>">Entry</button>
                                                 <?php if($p->is_entry==1): ?>
                                                     <a href="<?= base_url('downloadcontroller/beritaacara/'.$p->no_pengajuan) ?>" target="blank" class="btn btn-warning btn-sm mt-2"><i class="fa fa-download"></i>&nbsp;berita acara</a>
                                                     <a href="<?= base_url('downloadcontroller/lembarnilaita/'.$p->no_pengajuan) ?>" target="blank" class="btn btn-success btn-sm mt-2"><i class="fa fa-download"></i>&nbsp;lembar nilai</a>
@@ -716,12 +716,61 @@ use App\Models\BimbinganModel;
             $('#modal-body-pendaftaran').html(detail);
         })
 
-        $(".entry-ujian").on('click', function() {
-            let kode = $(this).data('kd-pendaftaran');
-            let npm = $(this).data('npm');
-            let tgl = $(this).data('tgl');
-            let tempat = $(this).data('tempat');
+        // $(".entry-ujian").on('click', function() {
+        //     let kode = $(this).data('kd-pendaftaran');
+        //     let npm = $(this).data('npm');
+        //     let tgl = $(this).data('tgl');
+        //     let tempat = $(this).data('tempat');
 
+        //     $("#kd_pendaftaran").val(kode);
+        //     $('#npmentryujian').val(npm)
+        //     $("#tgl").val(tgl);
+        //     $("#tempat").val(tempat);
+        //     console.log('tempat',tempat)
+
+
+        //     $.ajax({
+        //         url: "<?= base_url('pendaftaran/getUjian') ?>",
+        //         method: 'POST',
+        //         data: {
+        //             kd_pendaftaran: kode
+        //         },
+        //         async: false,
+        //         dataType: 'json',
+        //         success: function(res) {
+        //             console.log(res)
+        //             res.forEach(function(data) {
+        //                 if (data.title == 'Ketua Penguji') {
+        //                     if (data.nik == '') {
+        //                         $("#ketua_penguji").val('').change();
+        //                     } else {
+        //                         $("#ketua_penguji").val(data.nik).change();
+        //                     }
+        //                 } else if (data.title == 'Penguji 1') {
+        //                     if (data.nik == '') {
+        //                         $("#penguji_1").val('').change();
+        //                     } else {
+        //                         $("#penguji_1").val(data.nik).change();
+        //                     }
+        //                 } else {
+        //                     if (data.nik == '') {
+        //                         $("#penguji_2").val('').change();
+        //                     } else {
+        //                         $("#penguji_2").val(data.nik).change();
+        //                     }
+        //                 }
+        //             });
+        //         }
+        //     });
+        // });
+
+        $('#modal-entry-penguji').on('show.bs.modal', function (e) {
+            let target = e.relatedTarget // do something...
+            let kode = $(target).data('kd-pendaftaran');
+            let npm = $(target).data('npm');
+            let nik = $(target).data('nik');
+            let tgl = $(target).data('tgl');
+            let tempat = $(target).data('tempat');
             $("#kd_pendaftaran").val(kode);
             $('#npmentryujian').val(npm)
             $("#tgl").val(tgl);
@@ -738,30 +787,36 @@ use App\Models\BimbinganModel;
                 dataType: 'json',
                 success: function(res) {
                     console.log(res)
-                    res.forEach(function(data) {
-                        if (data.title == 'Ketua Penguji') {
-                            if (data.nik == '') {
-                                $("#ketua_penguji").val('').change();
+                    if(res.length > 0){
+                        res.forEach(function(data) {
+                            if (data.title == 'Ketua Penguji') {
+                                if (data.nik == '') {
+                                    $("#ketua_penguji").val('').change();
+                                } else {
+                                    $("#ketua_penguji").val(data.nik).change();
+                                }
+                            } else if (data.title == 'Penguji 1') {
+                                if (data.nik == '') {
+                                    $("#penguji_1").val('').change();
+                                } else {
+                                    $("#penguji_1").val(data.nik).change();
+                                }
                             } else {
-                                $("#ketua_penguji").val(data.nik).change();
+                                if (data.nik == '') {
+                                    $("#penguji_2").val(nik).change();
+                                } else {
+                                    $("#penguji_2").val(data.nik).change();
+                                }
                             }
-                        } else if (data.title == 'Penguji 1') {
-                            if (data.nik == '') {
-                                $("#penguji_1").val('').change();
-                            } else {
-                                $("#penguji_1").val(data.nik).change();
-                            }
-                        } else {
-                            if (data.nik == '') {
-                                $("#penguji_2").val('').change();
-                            } else {
-                                $("#penguji_2").val(data.nik).change();
-                            }
-                        }
-                    });
+                        });
+                    }else{
+                        $("#ketua_penguji").val('').change();
+                        $("#penguji_1").val('').change();
+                        $("#penguji_2").val(nik).change();
+                    }
                 }
             });
-        });
+        })
 
 
         //Date and time picker
@@ -779,6 +834,33 @@ use App\Models\BimbinganModel;
         //         format: 'YYYY-MM-DD hh:mm A'
         //     }
         // })
+
+        var table = $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+        const params = new URLSearchParams(window.location.search);
+        let search = params.get('search');
+        let id = params.get('id');
+        console.log(search)
+        if (search != null && id != null) {
+            table.search(search).draw();
+            $.ajax({
+                url: "<?= base_url('notifcontroller/update') ?>",
+                method: 'POST',
+                data: {
+                    id: id
+                },
+                success: function(res) {
+                    console.log(res)
+                }
+            });
+        }
 
            // disabled
            $("#status").on('change',function(){
