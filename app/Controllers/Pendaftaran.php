@@ -454,7 +454,7 @@ class Pendaftaran extends BaseController
 
     public function entryujian()
     {
-        // dd($_POST['tgl']);
+        // dd($_POST);
         // sendNotif($_POST['npm'], "Seminar Kerja Praktik", "seminar ujian kerja praktik kamu sudah di entry jadwal oleh prodi silahkan untuk mengeceknya", "pendaftaran/seminar");
         $ujian = new UjianModel();
         $pendaftaran_model = new PendaftaranModel();
@@ -469,33 +469,61 @@ class Pendaftaran extends BaseController
             'kd_pendaftaran' => $_POST['kd_pendaftaran']
         ];
         $pendaftaran_model->update($id, $pendaftaran);
+        // ketua penguji
+        $ketuaPenguji = $ujian->get($_POST['kd_pendaftaran'],'Ketua Penguji')->getRow();
+        if($ketuaPenguji == null){
+            $ujian->insert([
+                'kd_pendaftaran'=>$_POST['kd_pendaftaran'],
+                'title'=>'Ketua Penguji',
+                'nik'=>$_POST['ketua_penguji']
+            ]);
+        }else{
+            $ujian->update(
+                [
+                    'kd_ujian' => $ketuaPenguji->kd_ujian,
+                ],
+                [
+                    'nik' => $_POST['ketua_penguji']
+                ]
+            );
+        }
+        // dosen penguji 1
+        $penguji1 = $ujian->get($_POST['kd_pendaftaran'],'Penguji 1')->getRow();
+        if($penguji1 == null){
+            $ujian->insert([
+                'kd_pendaftaran'=>$_POST['kd_pendaftaran'],
+                'title'=>'Penguji 1',
+                'nik'=>$_POST['penguji_1']
+            ]);
+        }else{
+            $ujian->update(
+                [
+                    'kd_ujian' => $penguji1->kd_ujian,
+                ],
+                [
+                    'nik' => $_POST['penguji_1']
+                ]
+            );
+        }
 
-        $getPendaftaran = $ujian->get($_POST['kd_pendaftaran'])->getResult();
-
-        $ujian->update(
-            [
-                'kd_ujian' => $getPendaftaran[0]->kd_ujian
-            ],
-            [
-                'nik' => $_POST['ketua_penguji']
-            ]
-        );
-        $ujian->update(
-            [
-                'kd_ujian' => $getPendaftaran[1]->kd_ujian
-            ],
-            [
-                'nik' => $_POST['penguji_1']
-            ]
-        );
-        $ujian->update(
-            [
-                'kd_ujian' => $getPendaftaran[2]->kd_ujian
-            ],
-            [
-                'nik' => $_POST['penguji_2']
-            ]
-        );
+         // dosen penguji 2
+         $penguji2 = $ujian->get($_POST['kd_pendaftaran'],'Penguji 2')->getRow();
+         if($penguji2 == null){
+             $ujian->insert([
+                 'kd_pendaftaran'=>$_POST['kd_pendaftaran'],
+                 'title'=>'Penguji 2',
+                 'nik'=>$_POST['penguji_2']
+             ]);
+         }else{
+             $ujian->update(
+                 [
+                     'kd_ujian' => $penguji2->kd_ujian,
+                 ],
+                 [
+                     'nik' => $_POST['penguji_2']
+                 ]
+             );
+         }
 
         $jenis = isset($_POST['jenis']) ? $_POST['jenis'] : 'KP';
         if ($jenis == "KP") {
@@ -552,7 +580,7 @@ class Pendaftaran extends BaseController
     {
         $kd_pendaftaran = $_POST['kd_pendaftaran'];
         $ujian = new UjianModel();
-        $cek = $ujian->get($kd_pendaftaran)->getResult();
+        $cek = $ujian->get2($kd_pendaftaran)->getResult();
         return json_encode($cek);
     }
 
