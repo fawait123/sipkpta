@@ -531,12 +531,16 @@ if (session()->get('role') == "mahasiswa") : ?>
 </script>
 <?php if (session()->getFlashdata('pesan')) : ?>
     <script>
-        toastr.info('<?= session()->getFlashdata('pesan') ?>')
+        $(document).ready(function(){
+            toastr.info('<?= session()->getFlashdata('pesan') ?>')
+        })
     </script>
 <?php endif; ?>
 <?php if (session()->getFlashdata('error')) : ?>
     <script>
-        toastr.error('<?= session()->getFlashdata('error') ?>')
+        $(document).ready(function(){
+            toastr.error('<?= session()->getFlashdata('error') ?>')
+        })
     </script>
 <?php endif; ?>
 <?= $this->endsection(); ?>
