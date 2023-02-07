@@ -146,7 +146,8 @@ class Bimbingan extends BaseController
         // dd(APPPATH);
         if ($this->cekBimbingan(session()->get('username'), "KP")) :
             session()->setFlashdata('pesan', 'Menunggu Bimbingan sebelumnya di review');
-            return redirect()->to('bimbingan/bimbingankp');
+            // return redirect()->to('bimbingan/bimbingankp');
+            return 'warning';
         else :
             // sendNotif(session()->get('username'), $_POST['nik'], " Mengirim bimbingan kerja praktik, " . $_POST['materi'], "bimbingan/bimbingankp");
             // upload file
@@ -224,10 +225,12 @@ class Bimbingan extends BaseController
                 $builder = new BimbinganModel();
                 $builder->insert($data);
                 session()->setFlashdata('pesan', 'Bimbingan berhasil dikirim');
-                return redirect()->to('bimbingan/bimbingankp');
+                // return redirect()->to('bimbingan/bimbingankp');
+                return 'success';
             } else {
                 session()->setFlashdata('errors', 'Terjadi Kesalahan Pada Saat Upload Gambar');
-                return redirect()->to('bimbingan/bimbingankp');
+                // return redirect()->to('bimbingan/bimbingankp');
+                return 'error';
             }
         endif;
     }
@@ -235,7 +238,8 @@ class Bimbingan extends BaseController
     {
         if ($this->cekBimbingan(session()->get('username'), "TA")) :
             session()->setFlashdata('pesan', 'Menunggu bimbingan sebelumnya direview');
-            return redirect()->to('bimbingan/bimbinganta');
+            // return redirect()->to('bimbingan/bimbinganta');
+            return 'warning';
         else :
             // sendNotif(session()->get('username'), $_POST['nik'], " Mengirim bimbingan tugas akhir, " . $_POST['materi'], "bimbingan/bimbinganta");
             // upload file
@@ -310,9 +314,11 @@ class Bimbingan extends BaseController
                 $builder = new BimbinganModel();
                 $builder->insert($data);
                 session()->setFlashdata('pesan', 'Bimbingan berhasil dikirim');
-                return redirect()->to('bimbingan/bimbinganta');
+                // return redirect()->to('bimbingan/bimbinganta');
+                return 'success';
             } else {
-                session()->setFlashdata('errors', 'Terjadi Kesalahan Pada Saat Upload Gambar');
+                // session()->setFlashdata('errors', 'Terjadi Kesalahan Pada Saat Upload Gambar');
+                return 'error';
                 return redirect()->to('bimbingan/bimbinganta');
             }
         endif;

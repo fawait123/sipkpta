@@ -30,8 +30,8 @@
             <div class="form-group date">
 
             </div>
-            <div class="form-group d-none btn_row">
-                <button type="submit" class="btn btn-primary btn-sm">Kirim</button>
+            <div class="form-group btn_row">
+                <button type="submit" class="btn btn-primary btn-sm" id="btn-submit" disabled>Kirim</button>
             </div>
         </form>
     </div>
@@ -42,22 +42,35 @@
         $(".metode").on("change", function() {
             let file = "";
             let date = '';
+            let disabled = true
+            let extension = ''
+
             if ($(this).val() == "online") {
+                extension = "pdf";
                 message = "File extensi PDF";
                 file = `<label for="file">File Laporan</label>
                 <input type="file" name="file" id="file" class="form-control">`;
-            } else {
+                date = ''
+                disabled = false;
+            } else if($(this).val() == "offline") {
                 extension = "jpg|jpeg|png";
                 message = "File extensi JPG|JPEG|PNG";
                 file = `<label for="foto">Bukti Bimbingan</label>
                 <input type="file" name="foto" id="foto" class="form-control">`;
                 date = `    <label for="date">Tanggal Bimbingan</label>
                             <input type="date" name="date" class="form-control">`;
+                 disabled = false;
+            }else{
+                extension = "";
+                message = "";
+                file = "";
+                date = "";
+                disabled = true;
             }
 
             $(".file").html(file);
             $(".date").html(date)
-            $(".btn_row").removeClass("d-none");
+            $("#btn-submit").attr("disabled",disabled);
         });
 
         // form submit.
@@ -76,6 +89,9 @@
                 foto: {
                     required: true,
                     extension: "jpg|jpeg|png"
+                },
+                date:{
+                    required:true
                 }
             },
             messages: {
@@ -92,6 +108,9 @@
                 foto: {
                     required: "Inputan Bukti Bimbingan tidak boleh kosong",
                     extension: "File Bukti Bimbingan JPG|JPEG|PNG"
+                },
+                date:{
+                    required:'Inputan Tanggal Bimbingan tidak boleh kosong'
                 }
             },
             errorElement: 'span',
@@ -105,7 +124,43 @@
             unhighlight: function(element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             },
+            submitHandler: function(form) {
+            let formData = new FormData($(form)[0]);
+            let metode = formData.get('metode')
+            if(metode == 'online'){
+                formData.append('file',$("input[name=file]")[0].files[0]);
+            }else{
+                formData.append('foto',$("input[name=foto]")[0].files[0]);
+            }
+            $.ajax({
+            url:"<?= base_url('bimbingan/submitbimbingankp') ?>",
+            type:"post",
+            processData: false,
+            contentType: false,
+            data:formData,
+            beforeSend: function() {
+                $("#btn-submit").attr("disabled",true)
+                $("#btn-submit").html("Loading...")
+            },
+            success:function(res){
+                console.log(res)
+                if(res === "success" || res === 'warning'){
+                    window.location.href = "<?= base_url('bimbingan/kp') ?>"
+                }else{
+                    toastr.info('Terjadi kesalahan saat mengunggah file');
+                }
+            },
+            error: function(xhr) { // if error occured
+                    let err = eval("(" + xhr.responseText + ")");
+                    toastr.info(err.message);
+                    $("#btn-submit").attr("disabled",false)
+                    $("#btn-submit").html("Kirim")
+            },
+        })
+            },
         });
+
+        
     });
 </script>
 <?= $this->endsection(); ?>
