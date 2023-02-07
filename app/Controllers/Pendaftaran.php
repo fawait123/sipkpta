@@ -470,7 +470,7 @@ class Pendaftaran extends BaseController
         ];
         $pendaftaran_model->update($id, $pendaftaran);
         // ketua penguji
-        $ketuaPenguji = $ujian->get($_POST['kd_pendaftaran'],'Ketua Penguji')->getRow();
+        $ketuaPenguji = $ujian->get2($_POST['kd_pendaftaran'],'Ketua Penguji')->getRow();
         if($ketuaPenguji == null){
             $ujian->insert([
                 'kd_pendaftaran'=>$_POST['kd_pendaftaran'],
@@ -488,7 +488,7 @@ class Pendaftaran extends BaseController
             );
         }
         // dosen penguji 1
-        $penguji1 = $ujian->get($_POST['kd_pendaftaran'],'Penguji 1')->getRow();
+        $penguji1 = $ujian->get2($_POST['kd_pendaftaran'],'Penguji 1')->getRow();
         if($penguji1 == null){
             $ujian->insert([
                 'kd_pendaftaran'=>$_POST['kd_pendaftaran'],
@@ -507,7 +507,7 @@ class Pendaftaran extends BaseController
         }
 
          // dosen penguji 2
-         $penguji2 = $ujian->get($_POST['kd_pendaftaran'],'Penguji 2')->getRow();
+         $penguji2 = $ujian->get2($_POST['kd_pendaftaran'],'Penguji 2')->getRow();
          if($penguji2 == null){
              $ujian->insert([
                  'kd_pendaftaran'=>$_POST['kd_pendaftaran'],
@@ -580,7 +580,7 @@ class Pendaftaran extends BaseController
     {
         $kd_pendaftaran = $_POST['kd_pendaftaran'];
         $ujian = new UjianModel();
-        $cek = $ujian->get2($kd_pendaftaran)->getResult();
+        $cek = $ujian->get($kd_pendaftaran)->getResult();
         return json_encode($cek);
     }
 

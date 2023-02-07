@@ -52,20 +52,20 @@ class UjianModel extends Model
         return $bulder->countAllResults();
     }
 
-    public function get($where,$where2)
+    public function get($where)
+    {
+        $builder = $this->db->table('tb_ujian');
+        $builder->join('tb_dosen','tb_ujian.nik=tb_dosen.nik','left');
+        $builder->where('tb_ujian.kd_pendaftaran', $where);
+        return $builder->get();
+    }
+
+    public function get2($where,$where2)
     {
         $builder = $this->db->table('tb_ujian');
         $builder->join('tb_dosen','tb_ujian.nik=tb_dosen.nik','left');
         $builder->where('tb_ujian.kd_pendaftaran', $where);
         $builder->where('tb_ujian.title', $where2);
-        return $builder->get();
-    }
-
-    public function get2($where)
-    {
-        $builder = $this->db->table('tb_ujian');
-        $builder->join('tb_dosen','tb_ujian.nik=tb_dosen.nik','left');
-        $builder->where('tb_ujian.kd_pendaftaran', $where);
         return $builder->get();
     }
 
