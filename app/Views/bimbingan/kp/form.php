@@ -74,63 +74,65 @@
         });
 
         // form submit.
-        // $("#bimbingan-online-kp").validate({
-        //     rules: {
-        //         materi: {
-        //             required: true
-        //         },
-        //         metode: {
-        //             required: true
-        //         },
-        //         file: {
-        //             required: true,
-        //             extension: "pdf"
-        //         },
-        //         foto: {
-        //             required: true,
-        //             extension: "jpg|jpeg|png"
-        //         }
-        //     },
-        //     messages: {
-        //         materi: {
-        //             required: "Inputan Materi tidak boleh kosong"
-        //         },
-        //         metode: {
-        //             required: "Inputan Metode tidak boleh kosong"
-        //         },
-        //         file: {
-        //             required: "Inputan File Laporan tidak boleh kosong",
-        //             extension: "File Laporan extensi PDF"
-        //         },
-        //         foto: {
-        //             required: "Inputan Bukti Bimbingan tidak boleh kosong",
-        //             extension: "File Bukti Bimbingan JPG|JPEG|PNG"
-        //         }
-        //     },
-        //     errorElement: 'span',
-        //     errorPlacement: function(error, element) {
-        //         error.addClass('invalid-feedback');
-        //         element.closest('.form-group').append(error);
-        //     },
-        //     highlight: function(element, errorClass, validClass) {
-        //         $(element).addClass('is-invalid');
-        //     },
-        //     unhighlight: function(element, errorClass, validClass) {
-        //         $(element).removeClass('is-invalid');
-        //     },
-        // });
-
-        $("#bimbingan-online-kp").on('submit',function(event){
-            event.preventDefault();
-            let formData = new FormData($(this)[0]);
+        $("#bimbingan-online-kp").validate({
+            rules: {
+                materi: {
+                    required: true
+                },
+                metode: {
+                    required: true
+                },
+                file: {
+                    required: true,
+                    extension: "pdf"
+                },
+                foto: {
+                    required: true,
+                    extension: "jpg|jpeg|png"
+                },
+                date:{
+                    required:true
+                }
+            },
+            messages: {
+                materi: {
+                    required: "Inputan Materi tidak boleh kosong"
+                },
+                metode: {
+                    required: "Inputan Metode tidak boleh kosong"
+                },
+                file: {
+                    required: "Inputan File Laporan tidak boleh kosong",
+                    extension: "File Laporan extensi PDF"
+                },
+                foto: {
+                    required: "Inputan Bukti Bimbingan tidak boleh kosong",
+                    extension: "File Bukti Bimbingan JPG|JPEG|PNG"
+                },
+                date:{
+                    required:'Inputan Tanggal Bimbingan tidak boleh kosong'
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function(form) {
+            let formData = new FormData($(form)[0]);
             let metode = formData.get('metode')
             if(metode == 'online'){
                 formData.append('file',$("input[name=file]")[0].files[0]);
             }else{
                 formData.append('foto',$("input[name=foto]")[0].files[0]);
             }
-
-        $.ajax({
+            $.ajax({
             url:"<?= base_url('bimbingan/submitbimbingankp') ?>",
             type:"post",
             processData: false,
@@ -155,9 +157,10 @@
                     $("#btn-submit").html("Kirim")
             },
         })
+            },
+        });
 
-                console.log(formData);
-        })
+        
     });
 </script>
 <?= $this->endsection(); ?>

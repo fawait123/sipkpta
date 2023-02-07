@@ -84,6 +84,9 @@
                 foto: {
                     required: true,
                     extension: "jpg|jpeg|png"
+                },
+                date:{
+                    required:true
                 }
             },
             messages: {
@@ -100,6 +103,9 @@
                 foto: {
                     required: "Inputan Bukti Bimbingan tidak boleh kosong",
                     extension: "File Bukti Bimbingan JPG|JPEG|PNG"
+                },
+                date:{
+                    required:'Inputan Tanggal Bimbingan tidak boleh kosong'
                 }
             },
             errorElement: 'span',
@@ -113,11 +119,8 @@
             unhighlight: function(element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             },
-        });
-
-        $("#bimbingan-online-kp").on('submit',function(event){
-            event.preventDefault();
-            let formData = new FormData($(this)[0]);
+            submitHandler:function(form){
+                let formData = new FormData($(form)[0]);
             let metode = formData.get('metode')
             if(metode == 'online'){
                 formData.append('file',$("input[name=file]")[0].files[0]);
@@ -150,9 +153,8 @@
                     $("#btn-submit").html("Kirim")
                 },
             })
-
-                console.log(formData);
-        })
+            }
+        });
     });
 </script>
 <?= $this->endsection(); ?>
