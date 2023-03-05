@@ -65,6 +65,7 @@ class Persiapan extends BaseController
             'tahun_ajaran' => $tahun_ajaran,
             'semester' => $semester,
             'batas_bimbingan' => $batas_bimbingan,
+            'awal_bimbingan'=>date('Y-m-d')
         ];
         $model->updateTahunAjaran($data, $id);
 
