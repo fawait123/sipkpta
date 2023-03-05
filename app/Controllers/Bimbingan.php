@@ -16,6 +16,7 @@ use App\Models\BimbinganModel;
 use App\Models\NotifikasiModel;
 use App\Models\PengajuanModel;
 use App\Models\PerubahanJudulModel;
+use App\Models\PersiapanModel;
 
 class Bimbingan extends BaseController
 {
@@ -381,22 +382,24 @@ class Bimbingan extends BaseController
 
     public function getBimbingan($role, $jenis, $npm = null, $nik = null)
     {
+        $model = new PersiapanModel();
+        $getAjaran = $model->getTahunAjaran()->getRow();
         $builder = new BimbinganModel();
         switch ($role) {
             case 'mahasiswa':
-                $bimbingan =  $builder->get(session()->get('username'), $jenis);
+                $bimbingan =  $builder->get(session()->get('username'), $jenis,null,null,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan);
                 break;
             case 'dosen':
-                $bimbingan =  $builder->get(session()->get('username'), $jenis, $npm);
+                $bimbingan =  $builder->get(session()->get('username'), $jenis, $npm,null,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan);
                 break;
             case 'admin':
-                $bimbingan = $builder->get(null, $jenis, $npm, $nik);
+                $bimbingan = $builder->get(null, $jenis, $npm, $nik,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan);
                 break;
             case 'sekprod':
-                $bimbingan =  $builder->get(null, $jenis, $npm, $nik);
+                $bimbingan =  $builder->get(null, $jenis, $npm, $nik,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan);
                 break;
             case 'kaprodi':
-                $bimbingan =  $builder->get(null, $jenis, $npm, $nik);
+                $bimbingan =  $builder->get(null, $jenis, $npm, $nik,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan);
                 break;
             default:
                 $bimbingan = null;

@@ -30,7 +30,7 @@ $success = $session->getFlashdata('success');
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <div class="input-group date" id="tahun_ajaran" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" data-target="#tahun_ajaran" id="tahun_ajaran" name="tahun_ajaran" />
+                                                <input type="text" value="<?= explode('/',$row->tahun_ajaran)[0] ?>" class="form-control datetimepicker-input" data-target="#tahun_ajaran" id="tahun_ajaran" name="tahun_ajaran" />
                                                 <div class="input-group-append" data-target="#tahun_ajaran" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -41,7 +41,7 @@ $success = $session->getFlashdata('success');
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <div class="input-group date" id="tahun_ajaran2" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" data-target="#tahun_ajaran2" id="tahun_ajaran2" name="tahun_ajaran2" />
+                                                <input type="text"  value="<?= explode('/',$row->tahun_ajaran)[1] ?>" class="form-control datetimepicker-input" data-target="#tahun_ajaran2" id="tahun_ajaran2" name="tahun_ajaran2" />
                                                 <div class="input-group-append" data-target="#tahun_ajaran2" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>

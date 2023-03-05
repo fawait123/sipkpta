@@ -86,7 +86,7 @@ class BimbinganModel extends Model
         return $bulder->countAllResults();
     }
 
-    public function get($username = null, $jenis, $npm = null, $nik = null)
+    public function get($username = null, $jenis, $npm = null, $nik = null,$start,$end)
     {
         $builder = $this->db->table($this->table);
         $builder->select('*');
@@ -106,6 +106,8 @@ class BimbinganModel extends Model
                 $builder->where('tb_bimbingan.nik', $username);
             endif;
         endif;
+        $builder->where('tb_bimbingan.tgl >=',$start);
+        $builder->where('tb_bimbingan.tgl <=',$end);
         $builder->orderBy('kd_bimbingan', 'desc');
         return $builder->get();
     }
