@@ -59,7 +59,7 @@ class PerubahanJudulModel extends Model
         return $bulder->countAllResults();
     }
 
-    public function get($role = null, $username = null, $jenis)
+    public function get($role = null, $username = null, $jenis, $start,$end)
     {
         date_default_timezone_set('Asia/Jakarta');
         $builder = $this->db->table('tb_pengajuan');
@@ -82,6 +82,8 @@ class PerubahanJudulModel extends Model
             endif;
         endif;
         $builder->where('tb_pengajuan.jenis', $jenis);
+        $builder->where('tb_perubahan_judul.tgl_perubahan >=',$start.' 00:00:01');
+        $builder->where('tb_perubahan_judul.tgl_perubahan <=',$end.' 23:59:59');
         return $builder->get();
     }
 

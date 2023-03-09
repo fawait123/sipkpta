@@ -61,11 +61,12 @@ class Persiapan extends BaseController
         $tahun_ajaran = $this->request->getPost('tahun_ajaran') . "/" . $this->request->getPost('tahun_ajaran2');
         $semester = $this->request->getPost('semester');
         $batas_bimbingan = $this->request->getPost('batas_bimbingan');
+        $awal_bimbingan = $this->request->getPost('awal_bimbingan');
         $data = [
             'tahun_ajaran' => $tahun_ajaran,
             'semester' => $semester,
             'batas_bimbingan' => $batas_bimbingan,
-            'awal_bimbingan'=>date('Y-m-d')
+            'awal_bimbingan'=>$awal_bimbingan
         ];
         $model->updateTahunAjaran($data, $id);
 

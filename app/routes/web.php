@@ -76,3 +76,11 @@ $routes->group('perubahan', ['filter' => 'authfilter'], function ($routes) {
     // route ubah judul
     $routes->post('ubahjudul', 'PerubahanJudul::ubahjudul');
 });
+
+
+$routes->group('pasca', ['filter' => 'authfilter'], function ($routes) {
+    $routes->get('kerjapraktik', 'PascaController::kerjapraktik');
+    $routes->post('kerjapraktik', 'PascaController::storeKp');
+    $routes->get('tugasakhir', 'PascaController::tugasakhir');
+    $routes->get('yudisium', 'PascaController::yudisium');
+});
