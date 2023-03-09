@@ -14,6 +14,7 @@ use App\Models\PengajuanModel;
 use App\Models\PerubahanJudulModel;
 use App\Models\SekprodModel;
 use App\Models\TanggalPerubahan;
+use App\Models\PersiapanModel;
 
 class PerubahanJudul extends BaseController
 {
@@ -127,21 +128,23 @@ class PerubahanJudul extends BaseController
 
     public function getPerubahan($role, $jenis)
     {
+        $model = new PersiapanModel();
+        $getAjaran = $model->getTahunAjaran()->getRow();
         switch ($role) {
             case 'dosen':
-                $hasil = $this->model->get(null, session()->get('username'), $jenis)->getResult();
+                $hasil = $this->model->get(null, session()->get('username'), $jenis,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan)->getResult();
                 break;
             case 'kaprodi':
-                $hasil = $this->model->get(null, null, $jenis)->getResult();
+                $hasil = $this->model->get(null, null, $jenis,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan)->getResult();
                 break;
             case 'sekprod':
-                $hasil = $this->model->get(null, null, $jenis)->getResult();
+                $hasil = $this->model->get(null, null, $jenis,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan)->getResult();
                 break;
             case 'admin':
-                $hasil = $this->model->get(null, null, $jenis)->getResult();
+                $hasil = $this->model->get(null, null, $jenis,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan)->getResult();
                 break;
             case 'mahasiswa':
-                $hasil = $this->model->get($role, session()->get('username'), $jenis)->getRow();
+                $hasil = $this->model->get($role, session()->get('username'), $jenis,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan)->getRow();
                 break;
             default:
                 $hasil = null;

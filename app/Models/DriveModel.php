@@ -14,7 +14,7 @@ class DriveModel extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['username','jenis','drive_id'];
+    protected $allowedFields        = ['username','jenis','drive_id','keterangan'];
 
     // Dates
     protected $useTimestamps        = false;
@@ -50,6 +50,16 @@ class DriveModel extends Model
         return $query;
     }
 
+    public function getWhere2($username,$jenis,$search){
+        $query = $this->db->table($this->table);
+        $query = $query->getWhere([
+            'username'=>$username,
+            'jenis'   =>$jenis,
+            'keterangan'=>$search,
+            ])->getRow();
+        return $query;
+    }
+
     public function insertData($data)
     {
         $query = $this->db->table($this->table)->insert($data);
@@ -62,6 +72,16 @@ class DriveModel extends Model
         $query = $query->getWhere([
             'username'=>$username,
             'jenis'=>$jenis
+        ])->getRow();
+        return $query;
+    }
+
+    public function getParentFolder2($username,$jenis)
+    {
+        $query =  $this->db->table($this->table);
+        $query = $query->getWhere([
+            'username'=>$username,
+            'jenis'=>$jenis,
         ])->getRow();
         return $query;
     }

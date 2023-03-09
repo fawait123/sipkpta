@@ -61,6 +61,17 @@ $success = $session->getFlashdata('success');
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
+                                            <label>Awal Bimbingan</label>
+                                            <div class="input-group date" id="awal_bimbingan" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input" data-target="#awal_bimbingan" name="awal_bimbingan" value="<?= $row->awal_bimbingan; ?>" />
+                                                <div class="input-group-append" data-target="#awal_bimbingan" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
                                             <label>Batas Bimbingan</label>
                                             <div class="input-group date" id="batas_bimbingan" data-target-input="nearest">
                                                 <input type="text" class="form-control datetimepicker-input" data-target="#batas_bimbingan" name="batas_bimbingan" value="<?= $row->batas_bimbingan; ?>" />
@@ -608,6 +619,10 @@ $success = $session->getFlashdata('success');
         });
 
         $('#batas_bimbingan').datetimepicker({
+            format: 'YYYY-MM-DD',
+        });
+
+        $('#awal_bimbingan').datetimepicker({
             format: 'YYYY-MM-DD',
         });
 
