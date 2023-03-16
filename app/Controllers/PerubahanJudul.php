@@ -214,10 +214,12 @@ class PerubahanJudul extends BaseController
             $model = new PerubahanJudulModel();
             $model->insert($data);
             session()->setFlashdata('pesan', 'Perubahan Judul Berhasil diajukan');
-            return redirect()->to('perubahan/kp');
+            // return redirect()->to('perubahan/kp');
+            return 'success';
         } else {
             session()->setFlashdata('error', 'Error');
-            return redirect()->to('perubahan/kp');
+            // return redirect()->to('perubahan/kp');
+            return 'warning';
         }
     }
 
@@ -281,10 +283,12 @@ class PerubahanJudul extends BaseController
             $model = new PerubahanJudulModel();
             $model->insert($data);
             session()->setFlashdata('pesan', 'Perubahan Judul Berhasil diajukan');
-            return redirect()->to('perubahan/ta');
+            // return redirect()->to('perubahan/ta');
+            return 'success';
         } else {
             session()->setFlashdata('error', 'Error');
-            return redirect()->to('perubahan/ta');
+            // return redirect()->to('perubahan/ta');
+            return 'warning';
         }
     }
 

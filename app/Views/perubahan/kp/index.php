@@ -45,7 +45,7 @@ $end2 = strtotime($end);
                                 <label for="file">File Proposal<span class="text-danger">*</span></label>
                                 <input type="file" name="file" id="file" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit">Kirim</button>
                         </form>
                     </div>
                 </div>
@@ -88,8 +88,38 @@ $end2 = strtotime($end);
                             },
                             unhighlight: function(element, errorClass, validClass) {
                                 $(element).removeClass('is-invalid');
-                            }
-                        });
+                            },
+                            submitHandler: function(form) {
+                                let formData = new FormData($(form)[0]);
+                                let metode = formData.get('metode')
+                                formData.append('file',$("input[name=file]")[0].files[0]);
+                                $.ajax({
+                                url:"<?= base_url('perubahan/kp') ?>",
+                                type:"post",
+                                processData: false,
+                                contentType: false,
+                                data:formData,
+                                beforeSend: function() {
+                                    $("#btn-submit").attr("disabled",true)
+                                    $("#btn-submit").html("Loading...")
+                                },
+                                success:function(res){
+                                    console.log(res)
+                                    if(res === "success" || res === 'warning'){
+                                        window.location.href = "<?= base_url('perubahan/kp') ?>"
+                                    }else{
+                                        toastr.info('Terjadi kesalahan saat mengunggah file');
+                                    }
+                                },
+                                error: function(xhr) { // if error occured
+                                        let err = eval("(" + xhr.responseText + ")");
+                                        toastr.info(err.message);
+                                        $("#btn-submit").attr("disabled",false)
+                                        $("#btn-submit").html("Kirim")
+                                    },
+                                })
+                            },
+                    });
                     });
                 </script>
             <?php else : ?>
