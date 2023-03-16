@@ -65,8 +65,8 @@ class PerubahanJudulModel extends Model
         $builder = $this->db->table('tb_pengajuan');
         $builder->join('tb_perubahan_judul', 'tb_pengajuan.no_perubahan=tb_perubahan_judul.no_perubahan', 'left');
         $builder->join('tb_disposisi', 'tb_pengajuan.no_pengajuan=tb_disposisi.no_pengajuan', 'left');
-        $builder->join('tb_ploting_pembimbing', 'tb_pengajuan.no_pengajuan=tb_ploting_pembimbing.no_pengajuan', 'left');
-        $builder->join('tb_dosen', 'tb_ploting_pembimbing.nik=tb_dosen.nik', 'left');
+        // $builder->join('tb_ploting_pembimbing', 'tb_pengajuan.no_pengajuan=tb_ploting_pembimbing.no_pengajuan', 'left');
+        $builder->join('tb_dosen', 'tb_disposisi.nik=tb_dosen.nik', 'left');
         $builder->join('tb_mahasiswa', 'tb_pengajuan.npm=tb_mahasiswa.npm', 'left');
         // $builder->join('tb_perubahan_judul', 'tb_pengajuan.no_perubahan=tb_perubahan_judul.no_perubahan', 'left');
         $builder->where('tb_pengajuan.no_perubahan !=', null);
@@ -78,7 +78,7 @@ class PerubahanJudulModel extends Model
             endif;
         else :
             if ($username != null) :
-                $builder->where('tb_ploting_pembimbing.nik', $username);
+                $builder->where('tb_disposisi.nik', $username);
             endif;
         endif;
         $builder->where('tb_pengajuan.jenis', $jenis);
