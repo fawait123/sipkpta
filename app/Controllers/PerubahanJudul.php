@@ -40,7 +40,7 @@ class PerubahanJudul extends BaseController
         $data['user'] = $model->getUser(session()->get('username'))->getResult();
         $data['check'] = $check;
         $data['pengajuan'] = $this->pengajuan->findOne(session()->get('username'), "KP")->getRow();
-        // dd($data['perubahan']);
+        // dd($data);
         echo view('perubahan/kp/index', $data);
     }
     public function ta()

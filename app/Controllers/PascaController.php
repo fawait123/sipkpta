@@ -8,6 +8,7 @@ use App\Models\DosenModel;
 use App\Models\KaprodiModel;
 use App\Models\MahasiswaModel;
 use App\Models\DataKp;
+use App\Models\DataTa;
 use App\Helpers\Utils;
 use App\Libraries\DriveApi;
 
@@ -26,7 +27,7 @@ class PascaController extends BaseController
             $dataKp = new DataKp();
             $model = $this->getRole(session()->get('role'));
             $data['breadcrumbs'] = $this->bread->buildAuto();
-            $data['title'] = "Bimbingan TA";
+            $data['title'] = "Pasca Seminar Kerja Praktik";
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
@@ -41,12 +42,15 @@ class PascaController extends BaseController
     public function tugasakhir()
     {
         if (session()->get('isLoggedIn')) :
+            $dataTa = new DataTa();
             $model = $this->getRole(session()->get('role'));
             $data['breadcrumbs'] = $this->bread->buildAuto();
-            $data['title'] = "Bimbingan TA";
+            $data['title'] = "Pasca Pendadaran Tugas Akhir";
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['row'] = $dataTa->findOne('data_ta.Npm',session()->get('username'),'tb_pengajuan');
+            $data['pengajuan'] = $dataTa->getJudul(session()->get('username'),'TA')->getRow();
             echo view("pasca/ta", $data);
         else :
             return redirect()->to('home');
@@ -169,6 +173,130 @@ class PascaController extends BaseController
         } catch (\Throwable $th) {
             session()->setFlashdata('pesan', $th->getMessage());
             // return redirect()->to('pasca/kerjapraktik');
+            return 'warning';
+        }
+    }
+
+    public function storeTa()
+    {
+        try {
+            // dd($_FILES);
+            $model = new DataTa();
+
+            $abstrak = $this->request->getFile('abstrak');
+            $daftar_pustaka = $this->request->getFile('daftar_pustaka');
+            $laporan_ta = $this->request->getFile('laporan_ta');
+            $lembar_pengesahan = $this->request->getFile('lembar_pengesahan');
+            $naskah_publikasi = $this->request->getFile('naskah_publikasi');
+            $program = $this->request->getFile('program');
+            $database = $this->request->getFile('database');
+            $infografis_e = $this->request->getFile('infografis_e');
+            $infografis_n_e = $this->request->getFile('infografis_n_e');
+            // 
+            $user = Utils::getUser(session()->get('username'));
+            $folder_id = Utils::exist_folder($user->npm, $user->nama_mahasiswa, 'ta','pasca');
+            // abstrak
+            if ($abstrak) {
+                $file_path_abstrak = $abstrak->getTempName();
+                $file_type_abstrak = $abstrak->getMimeType();
+                $file_name_abstrak = $user->npm . '_' . $user->nama_mahasiswa . "_abstrak.".$abstrak->getExtension();
+                $drive_id_abstrak = DriveApi::upload($file_name_abstrak, $file_path_abstrak, $file_type_abstrak, $folder_id);
+            }
+
+            // naskah
+            if ($daftar_pustaka) {
+                $file_path_daftar_pustaka = $daftar_pustaka->getTempName();
+                $file_type_daftar_pustaka = $daftar_pustaka->getMimeType();
+                $file_name_daftar_pustaka = $user->npm . '_' . $user->nama_mahasiswa . "_daftar_pustaka.".$daftar_pustaka->getExtension();
+                $drive_id_daftar_pustaka = DriveApi::upload($file_name_daftar_pustaka, $file_path_daftar_pustaka, $file_type_daftar_pustaka, $folder_id);
+            }
+
+            // database
+            if ($laporan_ta) {
+                $file_path_laporan_ta = $laporan_ta->getTempName();
+                $file_type_laporan_ta = $laporan_ta->getMimeType();
+                $file_name_laporan_ta = $user->npm . '_' . $user->nama_mahasiswa . "_laporan_ta.".$laporan_ta->getExtension();
+                $drive_id_laporan_ta = DriveApi::upload($file_name_laporan_ta, $file_path_laporan_ta, $file_type_laporan_ta, $folder_id);
+            }
+
+            // database
+            if ($lembar_pengesahan) {
+                $file_path_lembar_pengesahan = $lembar_pengesahan->getTempName();
+                $file_type_lembar_pengesahan = $lembar_pengesahan->getMimeType();
+                $file_name_lembar_pengesahan = $user->npm . '_' . $user->nama_mahasiswa . "_lembar_pengesahan.".$lembar_pengesahan->getExtension();
+                $drive_id_lembar_pengesahan = DriveApi::upload($file_name_lembar_pengesahan, $file_path_lembar_pengesahan, $file_type_lembar_pengesahan, $folder_id);
+            }
+
+            // infografis e
+            if ($naskah_publikasi) {
+                $file_path_naskah_publikasi = $naskah_publikasi->getTempName();
+                $file_type_naskah_publikasi = $naskah_publikasi->getMimeType();
+                $file_name_naskah_publikasi = $user->npm . '_' . $user->nama_mahasiswa . "_naskah_publikasi.".$naskah_publikasi->getExtension();
+                $drive_id_naskah_publikasi = DriveApi::upload($file_name_naskah_publikasi, $file_path_naskah_publikasi, $file_type_naskah_publikasi, $folder_id);
+            }
+
+            // infografis n e
+            if ($program) {
+                $file_path_program = $program->getTempName();
+                $file_type_program = $program->getMimeType();
+                $file_name_program = $user->npm . '_' . $user->nama_mahasiswa . "_program.".$program->getExtension();
+                $drive_id_program = DriveApi::upload($file_name_program, $file_path_program, $file_type_program, $folder_id);
+            }
+
+            // infografis n e
+            if ($database) {
+                $file_path_database = $database->getTempName();
+                $file_type_database = $database->getMimeType();
+                $file_name_database = $user->npm . '_' . $user->nama_mahasiswa . "_database.".$database->getExtension();
+                $drive_id_database = DriveApi::upload($file_name_database, $file_path_database, $file_type_database, $folder_id);
+            }
+            // infografis n e
+            if ($infografis_e) {
+                $file_path_infografis_e = $infografis_e->getTempName();
+                $file_type_infografis_e = $infografis_e->getMimeType();
+                $file_name_infografis_e = $user->npm . '_' . $user->nama_mahasiswa . "_infografis_e.".$infografis_e->getExtension();
+                $drive_id_infografis_e = DriveApi::upload($file_name_infografis_e, $file_path_infografis_e, $file_type_infografis_e, $folder_id);
+            }
+            // infografis n e
+            if ($infografis_n_e) {
+                $file_path_infografis_n_e = $infografis_n_e->getTempName();
+                $file_type_infografis_n_e = $infografis_n_e->getMimeType();
+                $file_name_infografis_n_e = $user->npm . '_' . $user->nama_mahasiswa . "_infografis_n_e.".$infografis_n_e->getExtension();
+                $drive_id_infografis_n_e = DriveApi::upload($file_name_infografis_n_e, $file_path_infografis_n_e, $file_type_infografis_n_e, $folder_id);
+            }
+
+            $data_id = Utils::generateCode('DK',$model->countData());
+            $data = [
+                'Kode_Data_TA'=>$data_id,
+                'Npm'=>$user->username,
+                'Abstrak'=>$drive_id_abstrak,
+                'Daftar_Pustaka'=>$drive_id_daftar_pustaka,
+                'Laporan_TA'=>$drive_id_laporan_ta,
+                'Lembar_Pengesahan'=>$drive_id_lembar_pengesahan,
+                'Naskah_Publikasi'=>$drive_id_naskah_publikasi,
+                'Program'=>$drive_id_program,
+                'Database'=>$drive_id_database,
+                'Infografis_e'=>$drive_id_infografis_e,
+                'Infografis_n_e'=>$drive_id_infografis_n_e,
+                'Waktu_Submit'=>date('Y-m-d')
+            ];
+
+            $model->insertData($data);
+            $data2 = [
+                'Kode_Keterangan_ta'=>Utils::generateCode('KT',$model->countDataWithTable('keterangan_kp')),
+                'Kode_Data_ta'=>$data_id,
+                'Npm'=>session()->get('username'),
+                'Status_Kel_Data'=>'Belum diperiksa',
+                'Status_CD'=>'Belum mengumpulkan',
+                'Catatan'=>''
+            ];
+
+            $model->insertDataWithTable($data2,'keterangan_ta');
+
+            session()->setFlashdata('pesan', 'Pendaftaran Pasca tugas akhir berhasil dikirim');
+            return 'success';
+        } catch (\Throwable $th) {
+            session()->setFlashdata('pesan', $th->getMessage());
             return 'warning';
         }
     }
