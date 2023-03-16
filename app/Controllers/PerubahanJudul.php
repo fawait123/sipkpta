@@ -198,13 +198,10 @@ class PerubahanJudul extends BaseController
         // end upload file
 
         if ($proposal) {
-            $dataUpdate = [
-                'no_perubahan' => $this->kodePerubahan()
-            ];
-            $pengajuan = new PengajuanModel();
-            $pengajuan->updatePengajuan($dataUpdate, $_POST['no_pengajuan']);
+            
+            $no_perubahan = $this->kodePerubahan();
             $data = [
-                'no_perubahan' => $this->kodePerubahan(),
+                'no_perubahan' => $no_perubahan,
                 'judul_perubahan' => $_POST['judul'],
                 'proposal' => $new_proposal,
                 'studi_kasus' => $_POST['studi_kasus'],
@@ -212,10 +209,18 @@ class PerubahanJudul extends BaseController
                 'status_prodi' => null
             ];
             $model = new PerubahanJudulModel();
-            $model->insert($data);
-            session()->setFlashdata('pesan', 'Perubahan Judul Berhasil diajukan');
-            // return redirect()->to('perubahan/kp');
-            return 'success';
+            if($model->insert($data,false)){
+                $dataUpdate = [
+                    'no_perubahan' => $no_perubahan
+                ];
+                $pengajuan = new PengajuanModel();
+                $pengajuan->updatePengajuan($dataUpdate, $_POST['no_pengajuan']);
+                session()->setFlashdata('pesan', 'Perubahan Judul Berhasil diajukan');
+                // return redirect()->to('perubahan/kp');
+                return 'success';
+            }else{
+                return 'error';
+            }
         } else {
             session()->setFlashdata('error', 'Error');
             // return redirect()->to('perubahan/kp');
@@ -267,13 +272,9 @@ class PerubahanJudul extends BaseController
         // end upload file
 
         if ($proposal) {
-            $dataUpdate = [
-                'no_perubahan' => $this->kodePerubahan()
-            ];
-            $pengajuan = new PengajuanModel();
-            $pengajuan->updatePengajuan($dataUpdate, $_POST['no_pengajuan']);
+            $no_perubahan = $this->kodePerubahan();
             $data = [
-                'no_perubahan' => $this->kodePerubahan(),
+                'no_perubahan' => $no_perubahan,
                 'judul_perubahan' => $_POST['judul'],
                 'proposal' => $new_proposal,
                 'studi_kasus' => $_POST['studi_kasus'],
@@ -281,10 +282,18 @@ class PerubahanJudul extends BaseController
                 'status_prodi' => null
             ];
             $model = new PerubahanJudulModel();
-            $model->insert($data);
-            session()->setFlashdata('pesan', 'Perubahan Judul Berhasil diajukan');
-            // return redirect()->to('perubahan/ta');
-            return 'success';
+            if($model->insert($data,false)){
+                $dataUpdate = [
+                    'no_perubahan' => $no_perubahan,
+                ];
+                $pengajuan = new PengajuanModel();
+                $pengajuan->updatePengajuan($dataUpdate, $_POST['no_pengajuan']);
+                session()->setFlashdata('pesan', 'Perubahan Judul Berhasil diajukan');
+                // return redirect()->to('perubahan/ta');
+                return 'success';
+            }else{
+                return 'error';
+            }
         } else {
             session()->setFlashdata('error', 'Error');
             // return redirect()->to('perubahan/ta');
@@ -504,7 +513,7 @@ class PerubahanJudul extends BaseController
         $model = new PerubahanJudulModel();
         $count = $model->countRow();
         $count += 1;
-        $kode = date('YmdHis') . $count;
+        $kode = date('Ymd') . $count;
         return $kode;
     }
 

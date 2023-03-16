@@ -105,10 +105,14 @@ $end2 = strtotime($end);
                                 },
                                 success:function(res){
                                     console.log(res)
-                                    if(res === "success" || res === 'warning'){
+                                    $("#btn-submit").attr("disabled",false)
+                                    $("#btn-submit").html("Kirim")
+                                    if(res === "success"){
                                         window.location.href = "<?= base_url('perubahan/ta') ?>"
-                                    }else{
+                                    }else if(res === 'warning'){
                                         toastr.info('Terjadi kesalahan saat mengunggah file');
+                                    }else{
+                                        toastr.error('Terjadi kesalahan saat melakukan pengajuan, silahkan mencoba menggunakan browser lain dan disarankan untuk menggunakan laptop atau komputer');
                                     }
                                 },
                                 error: function(xhr) { // if error occured
