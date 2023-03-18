@@ -621,7 +621,6 @@
                             </li>
                         </ul>
                     </li>
-                    <?php if(getEnv('CI_ENVIRONMENT') == 'development') : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
@@ -650,7 +649,6 @@
                             </li>
                         </ul>
                     </li>
-                    <?php endif; ?>
                 <?php } elseif ($role == "dosen") {
                 ?>
                     <li class="nav-item">
