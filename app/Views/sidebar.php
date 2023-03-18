@@ -621,7 +621,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <?php if(getEnv('development')): ?>
+                        <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
                                 Pasca
@@ -649,6 +650,7 @@
                             </li>
                         </ul>
                     </li>
+                    <?php endif; ?>
                 <?php } elseif ($role == "dosen") {
                 ?>
                     <li class="nav-item">
@@ -884,7 +886,7 @@
                             </p>
                         </a>
                     </li>
-                    <?php if(getEnv('CI_ENVIRONMENT') == 'development') : ?>
+                    <?php if(getEnv('CI_ENVIRONMENT') == 'production') : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
