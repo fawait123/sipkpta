@@ -621,8 +621,7 @@
                             </li>
                         </ul>
                     </li>
-                    <?php if(getEnv('development')): ?>
-                        <li class="nav-item">
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
                                 Pasca
@@ -631,7 +630,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url('pasca/kerjapraktik'); ?>" class="nav-link">
+                                <a href="<?= site_url('admin/pasca/kerjapraktik'); ?>" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Seminar Kerja Praktik</p>
                                 </a>
@@ -650,7 +649,6 @@
                             </li>
                         </ul>
                     </li>
-                    <?php endif; ?>
                 <?php } elseif ($role == "dosen") {
                 ?>
                     <li class="nav-item">
@@ -886,7 +884,7 @@
                             </p>
                         </a>
                     </li>
-                    <?php if(getEnv('CI_ENVIRONMENT') == 'production') : ?>
+                    <?php if(getEnv('CI_ENVIRONMENT') == 'development') : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>

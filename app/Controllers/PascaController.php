@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Libraries\Breadcrumb as LibrariesBreadcrumb;
 use App\Controllers\BaseController;
 use App\Models\DosenModel;
+use App\Models\AdminModel;
 use App\Models\KaprodiModel;
 use App\Models\MahasiswaModel;
 use App\Models\DataKp;
@@ -34,6 +35,40 @@ class PascaController extends BaseController
             $data['row'] = $dataKp->findOne('data_kp.Npm',session()->get('username'),'tb_pengajuan');
             $data['pengajuan'] = $dataKp->getJudul(session()->get('username'),'KP')->getRow();
             echo view("pasca/kp", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
+    public function adminkerjapraktik()
+    {
+        if (session()->get('isLoggedIn')) :
+            $datakp = new DataKp();
+            $model = $this->getRole(session()->get('role'));
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Bimbingan TA";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['data'] = $datakp->get()->getResult();
+            echo view("pasca/admin/kp", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
+    public function adminshow($id)
+    {
+        if (session()->get('isLoggedIn')) :
+            $model = $this->getRole(session()->get('role'));
+            $model2 = new DataKp();
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Bimbingan TA";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['row'] = $model2->get($id)->getRow();
+            echo view("pasca/admin/show_kp", $data);
         else :
             return redirect()->to('home');
         endif;
@@ -299,6 +334,27 @@ class PascaController extends BaseController
             session()->setFlashdata('pesan', $th->getMessage());
             return 'warning';
         }
+    }
+
+    public function statusTa()
+    {
+        dd($_POST);
+    }
+
+    public function statusKp()
+    {
+        $model = new DataKp();
+
+        $model->updateDataWithTable('keterangan_kp',[
+            'Kode_Keterangan'=>$this->request->getVar('kode_keterangan')
+        ],[
+            'Catatan'=>$this->request->getVar('catatan'),
+            'Status_Kel_Data'=>$this->request->getVar('kelengkapan_data'),
+            'Status_CD'=>$this->request->getVar('status_cd'),
+        ]);
+
+        session()->setFlashdata('pesan', 'Update status pasca kerja praktik berhasil');
+        return redirect('admin/pasca/kerjapraktik');
     }
 
 

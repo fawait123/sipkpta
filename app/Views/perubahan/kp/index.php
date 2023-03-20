@@ -541,7 +541,7 @@ $end2 = strtotime($end);
                 <?php endforeach; ?>
             </tbody>
             <tfoot>
-                <tr>
+            <tr>
                     <th>No</th>
                     <th>NPM</th>
                     <th>Nama</th>
@@ -554,10 +554,11 @@ $end2 = strtotime($end);
                     <?php if (session()->get('role') == 'dosen' || session()->get('role') == 'kaprodi') : ?>
                         <th>Status Dosen</th>
                         <th>Status Prodi</th>
+                        <th>Status Mahasiswa</th>
                     <?php endif; ?>
                     <?php if (session()->get('role') == 'dosen') : ?>
                         <th>Aksi Dosen</th>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php if (session()->get('role') == 'kaprodi') : ?>
                         <th>Aksi Prodi</th>
                     <?php endif; ?>
