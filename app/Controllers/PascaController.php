@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Libraries\Breadcrumb as LibrariesBreadcrumb;
 use App\Controllers\BaseController;
 use App\Models\DosenModel;
+use App\Models\AdminModel;
 use App\Models\KaprodiModel;
 use App\Models\MahasiswaModel;
 use App\Models\DataKp;
@@ -34,6 +35,38 @@ class PascaController extends BaseController
             $data['row'] = $dataKp->findOne('data_kp.Npm',session()->get('username'),'tb_pengajuan');
             $data['pengajuan'] = $dataKp->getJudul(session()->get('username'),'KP')->getRow();
             echo view("pasca/kp", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
+    public function adminkerjapraktik()
+    {
+        if (session()->get('isLoggedIn')) :
+            $datakp = new DataKp();
+            $model = $this->getRole(session()->get('role'));
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Bimbingan TA";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['data'] = $datakp->get()->getResult();
+            echo view("pasca/admin/kp", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
+    public function adminshow($id)
+    {
+        if (session()->get('isLoggedIn')) :
+            $model = $this->getRole(session()->get('role'));
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Bimbingan TA";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            echo view("pasca/admin/show_kp", $data);
         else :
             return redirect()->to('home');
         endif;

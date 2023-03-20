@@ -85,3 +85,9 @@ $routes->group('pasca', ['filter' => 'authfilter'], function ($routes) {
     $routes->post('tugasakhir', 'PascaController::storeTa');
     $routes->get('yudisium', 'PascaController::yudisium');
 });
+
+// route admin pasca pendadaran
+$routes->group('admin/pasca', ['filter' => 'authfilter'], function ($routes) {
+    $routes->get('kerjapraktik', 'PascaController::adminkerjapraktik');
+    $routes->get('kerjapraktik/show/(:any)', 'PascaController::adminshow/$1');
+});

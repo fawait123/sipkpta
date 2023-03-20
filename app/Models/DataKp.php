@@ -131,4 +131,12 @@ class DataKp extends Model
         $builder->whereIn('status_perpanjang', $status_perpanjang);
         return  $builder->get();
     }
+
+    public function get()
+    {
+        $builder = $this->db->table($this->table);
+        $builder->join('tb_mahasiswa', 'tb_mahasiswa.npm = data_kp.Npm', 'left');
+        $builder->join('keterangan_kp', 'keterangan_kp.Kode_Data_Kp = data_kp.Kode_Data_KP', 'left');
+        return $builder->get();
+    }
 }

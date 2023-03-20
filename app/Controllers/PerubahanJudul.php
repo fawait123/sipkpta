@@ -56,7 +56,7 @@ class PerubahanJudul extends BaseController
         $data['user'] = $model->getUser(session()->get('username'))->getResult();
         $data['check'] = $check;
         $data['pengajuan'] = $this->pengajuan->findOne(session()->get('username'), "TA")->getRow();
-        // dd($data['perubahan']);
+
         echo view('perubahan/ta/index', $data);
     }
 
@@ -130,6 +130,7 @@ class PerubahanJudul extends BaseController
     {
         $model = new PersiapanModel();
         $getAjaran = $model->getTahunAjaran()->getRow();
+
         switch ($role) {
             case 'dosen':
                 $hasil = $this->model->get(null, session()->get('username'), $jenis,$getAjaran->awal_bimbingan,$getAjaran->batas_bimbingan)->getResult();
@@ -392,6 +393,7 @@ class PerubahanJudul extends BaseController
 
     public function reviewdosenta()
     {
+        dd($_POST);
         $jenis = $_POST['jenis'] == 'KP' ? 'Kerja Praktik' : 'Tugas Akhir';
         $url = $_POST['jenis'] == 'KP' ? 'perubahan/kp' : 'perubahan/ta';
         // if ($_POST['status_dosen'] == 'acc') :
