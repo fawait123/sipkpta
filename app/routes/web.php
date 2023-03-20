@@ -81,8 +81,10 @@ $routes->group('perubahan', ['filter' => 'authfilter'], function ($routes) {
 $routes->group('pasca', ['filter' => 'authfilter'], function ($routes) {
     $routes->get('kerjapraktik', 'PascaController::kerjapraktik');
     $routes->post('kerjapraktik', 'PascaController::storeKp');
+    $routes->post('kerjapraktik/status', 'PascaController::statusKp');
     $routes->get('tugasakhir', 'PascaController::tugasakhir');
     $routes->post('tugasakhir', 'PascaController::storeTa');
+    $routes->post('tugasakhir/status', 'PascaController::statusTa');
     $routes->get('yudisium', 'PascaController::yudisium');
 });
 

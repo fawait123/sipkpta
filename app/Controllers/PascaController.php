@@ -61,11 +61,13 @@ class PascaController extends BaseController
     {
         if (session()->get('isLoggedIn')) :
             $model = $this->getRole(session()->get('role'));
+            $model2 = new DataKp();
             $data['breadcrumbs'] = $this->bread->buildAuto();
             $data['title'] = "Bimbingan TA";
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['row'] = $model2->get($id)->getRow();
             echo view("pasca/admin/show_kp", $data);
         else :
             return redirect()->to('home');
@@ -332,6 +334,27 @@ class PascaController extends BaseController
             session()->setFlashdata('pesan', $th->getMessage());
             return 'warning';
         }
+    }
+
+    public function statusTa()
+    {
+        dd($_POST);
+    }
+
+    public function statusKp()
+    {
+        $model = new DataKp();
+
+        $model->updateDataWithTable('keterangan_kp',[
+            'Kode_Keterangan'=>$this->request->getVar('kode_keterangan')
+        ],[
+            'Catatan'=>$this->request->getVar('catatan'),
+            'Status_Kel_Data'=>$this->request->getVar('kelengkapan_data'),
+            'Status_CD'=>$this->request->getVar('status_cd'),
+        ]);
+
+        session()->setFlashdata('pesan', 'Update status pasca kerja praktik berhasil');
+        return redirect('admin/pasca/kerjapraktik');
     }
 
 

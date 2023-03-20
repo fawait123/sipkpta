@@ -87,6 +87,11 @@ class DataKp extends Model
         return $query;
     }
 
+    public function updateDataWithTable($table,$id,$data)
+    {
+        $query = $this->db->table($table)->update($data,$id);
+    }
+
 
     public function countData()
     {
@@ -132,11 +137,14 @@ class DataKp extends Model
         return  $builder->get();
     }
 
-    public function get()
+    public function get($id=null)
     {
         $builder = $this->db->table($this->table);
         $builder->join('tb_mahasiswa', 'tb_mahasiswa.npm = data_kp.Npm', 'left');
         $builder->join('keterangan_kp', 'keterangan_kp.Kode_Data_Kp = data_kp.Kode_Data_KP', 'left');
+        if($id != null){
+            $builder = $builder->where('data_kp.Kode_Data_KP',$id);
+        }
         return $builder->get();
     }
 }

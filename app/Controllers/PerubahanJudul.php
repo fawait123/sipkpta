@@ -393,7 +393,6 @@ class PerubahanJudul extends BaseController
 
     public function reviewdosenta()
     {
-        dd($_POST);
         $jenis = $_POST['jenis'] == 'KP' ? 'Kerja Praktik' : 'Tugas Akhir';
         $url = $_POST['jenis'] == 'KP' ? 'perubahan/kp' : 'perubahan/ta';
         // if ($_POST['status_dosen'] == 'acc') :

@@ -20,7 +20,7 @@
                             <td><?=$item->npm?></td>
                             <td><?=$item->nama_mahasiswa?></td>
                             <td>
-                                <a href="<?=base_url('admin/pasca/kerjapraktik/show/'.$item->Kode_Data_kp)?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
+                                <a href="<?=base_url('admin/pasca/kerjapraktik/show/'.$item->Kode_Data_KP)?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
