@@ -3,6 +3,7 @@ namespace App\Helpers;
 use App\Models\BimbinganModel;
 use App\Models\DriveModel;
 use App\Libraries\DriveApi;
+use \DateTime;
 
 class Utils {
     public static function generateCode($code,$count)
@@ -53,5 +54,13 @@ class Utils {
         }
 
         return $driveId;
+    }
+
+
+    public static function addDate($start,$day)
+    {
+        $stop_date = new DateTime($start);
+        $stop_date->modify('+'.$day.' day');
+        return $stop_date->format('Y-m-d H:i:s');
     }
 }

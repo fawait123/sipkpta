@@ -147,4 +147,14 @@ class DataKp extends Model
         }
         return $builder->get();
     }
+
+    public function getPendaftaran($id=null)
+    {
+        $builder = $this->db->table('tb_pendaftaran');
+        if($id != null){
+            $builder = $builder->where('tb_pendaftaran.npm',$id);
+        }
+        $builder = $builder->where('jenis','KP');
+        return $builder->get();
+    }
 }

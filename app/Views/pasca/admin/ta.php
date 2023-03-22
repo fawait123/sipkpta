@@ -2,9 +2,53 @@
 <?= $this->section('content'); ?>
 <div class="card">
     <div class="card-body">
-        <h1>halaman pasca</h1>
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>NPM</th>
+                        <th>Nama</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no=1; ?>
+                    <?php foreach($data as $item): ?>
+                        <tr>
+                            <td><?=$no++?></td>
+                            <td><?=$item->npm?></td>
+                            <td><?=$item->nama_mahasiswa?></td>
+                            <td>
+                                <a href="<?=base_url('admin/pasca/tugasakhir/show/'.$item->Kode_Data_TA)?>" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                        <th>NO</th>
+                        <th>NPM</th>
+                        <th>Nama</th>
+                        <th>Aksi</th>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        let table = $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    })
+</script>
 <?php if (session()->getFlashdata('pesan')) : ?>
     <script>
         $(document).ready(function(){

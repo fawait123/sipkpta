@@ -34,6 +34,7 @@ class PascaController extends BaseController
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
             $data['row'] = $dataKp->findOne('data_kp.Npm',session()->get('username'),'tb_pengajuan');
             $data['pengajuan'] = $dataKp->getJudul(session()->get('username'),'KP')->getRow();
+            $data['check'] = $dataKp->getPendaftaran(session()->get('username'))->getRow();
             echo view("pasca/kp", $data);
         else :
             return redirect()->to('home');
@@ -46,12 +47,29 @@ class PascaController extends BaseController
             $datakp = new DataKp();
             $model = $this->getRole(session()->get('role'));
             $data['breadcrumbs'] = $this->bread->buildAuto();
-            $data['title'] = "Bimbingan TA";
+            $data['title'] = "Pasca Seminar Kerja Praktik";
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
             $data['data'] = $datakp->get()->getResult();
             echo view("pasca/admin/kp", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
+    public function admintugasakhir()
+    {
+        if (session()->get('isLoggedIn')) :
+            $datata = new DataTa();
+            $model = $this->getRole(session()->get('role'));
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Pasca Pendadaran Tugas Akhir";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['data'] = $datata->get()->getResult();
+            echo view("pasca/admin/ta", $data);
         else :
             return redirect()->to('home');
         endif;
@@ -74,6 +92,23 @@ class PascaController extends BaseController
         endif;
     }
 
+    public function adminshowta($id)
+    {
+        if (session()->get('isLoggedIn')) :
+            $model = $this->getRole(session()->get('role'));
+            $model2 = new DataTa();
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Bimbingan TA";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['row'] = $model2->get($id)->getRow();
+            echo view("pasca/admin/show_ta", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
     public function tugasakhir()
     {
         if (session()->get('isLoggedIn')) :
@@ -86,6 +121,8 @@ class PascaController extends BaseController
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
             $data['row'] = $dataTa->findOne('data_ta.Npm',session()->get('username'),'tb_pengajuan');
             $data['pengajuan'] = $dataTa->getJudul(session()->get('username'),'TA')->getRow();
+            $data['check'] = $dataTa->getPendaftaran(session()->get('username'))->getRow();
+            // dd($data);
             echo view("pasca/ta", $data);
         else :
             return redirect()->to('home');
@@ -338,7 +375,18 @@ class PascaController extends BaseController
 
     public function statusTa()
     {
-        dd($_POST);
+        $model = new DataTa();
+
+        $model->updateDataWithTable('keterangan_ta',[
+            'Kode_Keterangan_ta'=>$this->request->getVar('kode_keterangan')
+        ],[
+            'Catatan'=>$this->request->getVar('catatan'),
+            'Status_Kel_Data'=>$this->request->getVar('kelengkapan_data'),
+            'Status_CD'=>$this->request->getVar('status_cd'),
+        ]);
+
+        session()->setFlashdata('pesan', 'Update status pasca tugas akhir berhasil');
+        return redirect('admin/pasca/tugasakhir');
     }
 
     public function statusKp()
