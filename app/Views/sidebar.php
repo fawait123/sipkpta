@@ -636,7 +636,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url('pasca/tugasakhir'); ?>" class="nav-link">
+                                <a href="<?= site_url('admin/pasca/tugasakhir'); ?>" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Ujian Pendadaran Tugas Akhir</p>
                                 </a>

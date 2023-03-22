@@ -66,6 +66,11 @@ class DataTa extends Model
         return $query;
     }
 
+    public function updateDataWithTable($table,$id,$data)
+    {
+        $query = $this->db->table($table)->update($data,$id);
+    }
+
 
     public function findOne($key,$value){
         $query = $this->db->table($this->table);
@@ -96,5 +101,26 @@ class DataTa extends Model
         $status_perpanjang = ['Baru', 'Perpanjang', 'Selesai'];
         $builder->whereIn('status_perpanjang', $status_perpanjang);
         return  $builder->get();
+    }
+
+    public function get($id=null)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->join('tb_mahasiswa', 'tb_mahasiswa.npm = data_ta.Npm', 'left');
+        $builder->join('keterangan_ta', 'keterangan_ta.Kode_Data_ta = data_ta.Kode_Data_TA', 'left');
+        if($id != null){
+            $builder = $builder->where('data_ta.Kode_Data_TA',$id);
+        }
+        return $builder->get();
+    }
+
+    public function getPendaftaran($id=null)
+    {
+        $builder = $this->db->table('tb_pendaftaran');
+        if($id != null){
+            $builder = $builder->where('tb_pendaftaran.npm',$id);
+        }
+        $builder = $builder->where('jenis','TA');
+        return $builder->get();
     }
 }
