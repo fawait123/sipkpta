@@ -138,7 +138,7 @@ class PascaController extends BaseController
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
-            echo view("pasca/kp", $data);
+            echo view("pasca/yudisium", $data);
         else :
             return redirect()->to('home');
         endif;
