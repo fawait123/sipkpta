@@ -93,5 +93,8 @@ $routes->group('admin/pasca', ['filter' => 'authfilter'], function ($routes) {
     $routes->get('kerjapraktik', 'PascaController::adminkerjapraktik');
     $routes->get('kerjapraktik/show/(:any)', 'PascaController::adminshow/$1');
     $routes->get('tugasakhir', 'PascaController::admintugasakhir');
+    $routes->get('yudisium', 'PascaController::adminYudisium');
+    $routes->get('yudisium/berkas/(:any)', 'PascaController::adminBerkas/$1');
+    $routes->get('yudisium/updateBerkas', 'PascaController::updateBerkas');
     $routes->get('tugasakhir/show/(:any)', 'PascaController::adminshowta/$1');
 });

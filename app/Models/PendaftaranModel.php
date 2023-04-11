@@ -112,4 +112,20 @@ class PendaftaranModel extends Model
         $builder->where('tb_pengajuan.no_pengajuan',$no_pengajuan);
         return $builder->get();
     }
+
+    public function getWithRelation($jenis=null,$status = null,$npm = null)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->join('tb_mahasiswa','tb_mahasiswa.npm=tb_pendaftaran.npm','left');
+        if($jenis != null):
+            $builder = $builder->where('tb_pendaftaran.jenis',$jenis);
+        endif;
+        if($status != null):
+            $builder = $builder->where('tb_pendaftaran.status_pendaftaran',$status);
+        endif;
+        if($npm != null):
+            $builder = $builder->where('tb_pendaftaran.npm',$npm);
+        endif;
+        return $builder->get();
+    }
 }
