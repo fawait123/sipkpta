@@ -164,33 +164,40 @@ use App\Helpers\Utils;
                 $("#form-store").validate({
                 rules: {
                     abstrak: {
-                        required: true
+                        required: true,
+                        extension: "pdf"
                     },
                     daftar_pustaka: {
-                        required: true
+                        required: true,
+                        extension: "pdf"
                     },
                     laporan_ta: {
                         required: true,
-                        // extension: "pdf"
+                        extension: "pdf"
                     },
                     lembar_pengesahan: {
                         required: true,
-                        // extension: "jpg|jpeg|png"
+                        extension: "pdf"
                     },
                     naskah_publikasi:{
-                        required:true
+                        required:true,
+                        extension: "pdf"
                     },
                     program:{
-                        required:true
+                        required:true,
+                        extension: "zip|rar"
                     },
                     database:{
-                        required:true
+                        required:true,
+                        extension: "sql"
                     },
                     infografis_e:{
-                        required:true
+                        required:true,
+                        extension: "doc|docx"
                     },
                     infografis_n_e:{
-                        required:true
+                        required:true,
+                        extension: "pdf"
                     }
                 },
                 messages: {

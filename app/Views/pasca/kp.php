@@ -146,24 +146,28 @@ use App\Helpers\Utils;
                 $("#form-store").validate({
                 rules: {
                     abstrak: {
-                        required: true
+                        required: true,
+                        extension: "pdf"
                     },
                     naskah: {
-                        required: true
+                        required: true,
+                        extension: "pdf"
                     },
                     database: {
                         required: true,
-                        // extension: "pdf"
+                        extension: "sql"
                     },
                     infografis_e: {
                         required: true,
-                        // extension: "jpg|jpeg|png"
+                        extension: "doc|docx"
                     },
                     infografis_n_e:{
-                        required:true
+                        required:true,
+                        extension: "pdf"
                     },
                     program:{
-                        required:true
+                        required:true,
+                        extension: "zip|rar"
                     }
                 },
                 messages: {
