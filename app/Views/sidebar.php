@@ -884,7 +884,7 @@
                             </p>
                         </a>
                     </li>
-                    <?php if(getEnv('CI_ENVIRONMENT') == 'development') : ?>
+                    <?php if(getEnv('CI_ENVIRONMENT') == 'production') : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
