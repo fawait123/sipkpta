@@ -1,56 +1,133 @@
 <?= $this->extend('layout'); ?>
 <?= $this->section('content'); ?>
+<?php
+use App\Models\PengumpulanBerkasModel;
+use App\Helpers\Utils;
+use App\Libraries\DriveApi;
+
+$model = new PengumpulanBerkasModel();
+$dataBerkas = $berkas ? json_decode($berkas->berkas) : [];  
+$dataBerkas = Utils::filter($dataBerkas);
+?>
+<?php if($pendaftaran): ?>
 <div class="card">
+    <div class="card-header">Status Pengumpulan Berkas</div>
     <div class="card-body">
-        <h1>Data Diri</h1>
+        <table class="table table-bordered">
+            <tr>
+                <td>1.</td>
+                <td>Bukti Prosesi Foto dari studio</td>
+                <td>
+                    <input type="checkbox" disabled name="foto_studio" <?= $berkas && json_decode($berkas->berkas)[0]->status == true ? 'checked':''?> >
+                </td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Surat Pernyataan Penulisan Identitas</td>
+                <td>
+                    <input type="checkbox" disabled name="penulisan_identitas"  <?= $berkas && json_decode($berkas->berkas)[1]->status == true ? 'checked':''?> >
+                </td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Ijazah SLTA/ Ijazah D3</td>
+                <td>
+                    <input type="checkbox" disabled name="ijazah"  <?= $berkas && json_decode($berkas->berkas)[2]->status == true ? 'checked':''?>>
+                </td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>Akte Kelahiran (Legalisir)</td>
+                <td>
+                    <input type="checkbox" disabled name="akte_kelahiran"  <?= $berkas && json_decode($berkas->berkas)[3]->status == true ? 'checked':''?>>
+                </td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>Data Pribadi & Pas Foto 4x6</td>
+                <td>
+                    <input type="checkbox" disabled name="data_pribadi"  <?= $berkas && json_decode($berkas->berkas)[4]->status == true ? 'checked':''?>>
+                </td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>Surat Rekomendasi Ka. Prodi (Wisuda)</td>
+                <td>
+                    <input type="checkbox" disabled name="surat_rekomendasi"  <?= $berkas && json_decode($berkas->berkas)[5]->status == true ? 'checked':''?>>
+                </td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>FC Berita Acara Ujian Pendadaran</td>
+                <td>
+                    <input type="checkbox" disabled name="berita_acara"  <?= $berkas && json_decode($berkas->berkas)[6]->status == true ? 'checked':''?>>
+                </td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>CD yang sudah di ttd dosbing</td>
+                <td>
+                    <input type="checkbox" disabled name="cd"  <?= $berkas && json_decode($berkas->berkas)[7]->status == true ? 'checked':''?>>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-bordered mt-4">
+            <tr>
+                <td>Status Pengumpulan Berkas</td>
+                <td>
+                    <span class="badge bg-<?=count($dataBerkas) == 8 ? 'primary' : 'danger'?>"><?=count($dataBerkas) == 8 ? 'Lengkap' : 'Tidak Lengkap'?></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Jumlah Point Sertifikat</td>
+                <td>
+                    <?=array_sum(array_column($sertifikat, 'poin')); ?>, <?=array_sum(array_column($sertifikat, 'poin')) >= 10 ? 'Memenuhi' : 'Belum Memenuhi' ?>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-<div class="card">
-    <div class="card-body">
-        <form action="" enctype="multipart-form-data">
-            <div class="form-group">
-                <label for="Foto">Foto</label>
-                <input type="file" name="foto" class="form-control" placeholder="Foto" />
-            </div>
-            <div class="form-group">
-                <label for="Berita_acara">Scan Berita Acara Ujian Pendadaran</label>
-                <input type="file" name="berita_acara" class="form-control" placeholder="Berita_acara" />
-            </div>
-            <div class="form-group">
-                <label for="Database">Scan Surat Rekomendasi Kaprodi</label>
-                <input type="file" name="surat_rekomendasi" class="form-control" placeholder="Database" />
-            </div>
-            <div class="form-group">
-                <label for="Inforgrafis Editable">Scan Sertifikat Toefle</label>
-                <input type="file" name="sertifikat_toefle" class="form-control" placeholder="Inforgrafis Editable" />
-            </div>
-            <div class="form-group">
-                <input type="checkbox" name="persetujuan">* Data yang diisikan sudah benar
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit">Simpan</button>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
+
+        <div class="row">
+          <div class="col-12">
+            <!-- Custom Tabs -->
+            <div class="card">
+              <div class="card-header d-flex p-0">
+                <h3 class="card-title p-3">Sertifikat</h3>
+                <ul class="nav nav-pills ml-auto p-2">
+                  <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Upload Sertifikat</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">List Sertifikat</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                  <form action="<?=base_url('pasca/upload/sertifikat')?>" method="post"  enctype="multipart/form-data" id="form-sertifikat">
         <div class="form-group">
-            <label for="peran">Peran</label>
-            <select name="perant" id="peran" class="form-control">
+            <label for="jenis">Jenis</label>
+            <select name="jenis" id="peran" class="form-control">
                 <option value="">pilih</option>
+                <?php foreach($jenis as $item): ?>
+                    <option value="<?=$item->Kode_Kegiatan?>"><?=$item->Jenis_Kegiatan?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
-            <label for="jenis">Jenis</label>
-            <select name="perant" id="peran" class="form-control">
+            <label for="peran">Peran</label>
+            <select name="peran" id="peran" class="form-control">
                 <option value="">pilih</option>
+                <?php foreach($peran as $item): ?>
+                    <option value="<?=$item->Kode_Peran?>"><?=$item->Peran?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
             <label for="tingkat">Tingkat</label>
-            <select name="perant" id="peran" class="form-control">
+            <select name="tingkat" id="peran" class="form-control">
                 <option value="">pilih</option>
+                <?php foreach($tingkat as $item): ?>
+                    <option value="<?=$item->Kode_Tingkat?>"><?=$item->Tingkat?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
@@ -58,10 +135,93 @@
             <input type="file" name="bukti" class="form-control">
         </div>
         <div class="form-group">
-            <button class="btn btn-primary">Simpan</button>
+            <button class="btn btn-primary" type="submit">Simpan</button>
+        </div>
+        </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2">
+                    <div class="row">
+                        <?php foreach($sertifikat as $item): ?>
+                            <div class="col-3 text-center">
+                                <a href="<?=DriveApi::getFile($item->bukti)?>" target="blank">
+                                    <i class="fa fa-file text-center text-danger" style="font-size:24px"></i>
+                                    <h6 class="text-bold text-secondary mt-2 text-center"><?=$item->peran?> (<?=$item->poin?>)</h6>
+                                    <h6 class="text-bold text-secondary mt-2 text-center"><?=$item->kegiatan?> / <?=$item->tingkat?></h6>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- ./card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+<?php else: ?>
+<div class="card">
+    <div class="card-body">
+        <div class="alert alert-primary" role="alert">
+            <ul>
+                <li>Anda tidak dapat mengakses halaman pasca yudisium</li>
+                <li>Halaman hanya bisa diakses ketika anda sudah melakukan pendadaran Tugas Akhir</li>
+            </ul>
         </div>
     </div>
 </div>
+<?php endif; ?>
+
+<script>
+    $(document).ready(function(){
+        $("#form-sertifikat").validate({
+            rules: {
+                    bukti: {
+                        required: true,
+                        extension: "pdf",
+                    },
+                    jenis:{
+                        required:true,
+                    },
+                    peran:{
+                        required:true,
+                    },
+                    tingkat:{
+                        required:true,
+                    }
+                },
+                messages: {
+                    bukti: {
+                        required: "Wajib Diisi",
+                        extension: "File Harus PDF",
+                    },
+                    jenis: {
+                        required: "Wajib Diisi",
+                    },
+                    peran: {
+                        required: "Wajib Diisi",
+                    },
+                    tingkat: {
+                        required: "Wajib Diisi",
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                },
+        });
+    })
+</script>
 <?php if (session()->getFlashdata('pesan')) : ?>
     <script>
         $(document).ready(function(){

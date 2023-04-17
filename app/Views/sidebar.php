@@ -642,7 +642,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url('pasca/yudisium'); ?>" class="nav-link">
+                                <a href="<?= site_url('admin/pasca/yudisium'); ?>" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pendaftaran Yudisium</p>
                                 </a>

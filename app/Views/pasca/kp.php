@@ -84,19 +84,6 @@ use App\Helpers\Utils;
                                     <li class="list-group-item"><b><?= $row->Catatan == '' || $row->Catatan == null ? '-' : $row->Catatan ?></b></li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <!-- END timeline item -->
-                    <!-- timeline item -->
-                <div>
-                    <i class="fas fa-calendar bg-dark"></i>
-                    <div class="timeline-item">
-                    <span class="time"><i class="fas fa-clock"></i> <?= date('H:i') ?></span>
-                    <h3 class="timeline-header">Pengumpulan CD</h3>
-                    <div class="timeline-body">
-                        <div class="row">
                             <div class="col-6">
                                 <ul class="list-group">
                                     <li class="list-group-item">Status Pengumpulan CD</li>
@@ -111,7 +98,6 @@ use App\Helpers\Utils;
                     </div>
                     </div>
                 </div>
-                <!-- END timeline item -->
                 </div>
             </div>
             <!-- /.col -->
@@ -160,24 +146,28 @@ use App\Helpers\Utils;
                 $("#form-store").validate({
                 rules: {
                     abstrak: {
-                        required: true
+                        required: true,
+                        extension: "pdf"
                     },
                     naskah: {
-                        required: true
+                        required: true,
+                        extension: "pdf"
                     },
                     database: {
                         required: true,
-                        // extension: "pdf"
+                        extension: "sql"
                     },
                     infografis_e: {
                         required: true,
-                        // extension: "jpg|jpeg|png"
+                        extension: "doc|docx"
                     },
                     infografis_n_e:{
-                        required:true
+                        required:true,
+                        extension: "pdf"
                     },
                     program:{
-                        required:true
+                        required:true,
+                        extension: "zip|rar"
                     }
                 },
                 messages: {
@@ -325,19 +315,6 @@ use App\Helpers\Utils;
                                     <li class="list-group-item"><b><?= $row->Catatan == '' || $row->Catatan == null ? '-' : $row->Catatan ?></b></li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <!-- END timeline item -->
-                    <!-- timeline item -->
-                <div>
-                    <i class="fas fa-calendar bg-dark"></i>
-                    <div class="timeline-item">
-                    <span class="time"><i class="fas fa-clock"></i> <?= date('H:i') ?></span>
-                    <h3 class="timeline-header">Pengumpulan CD</h3>
-                    <div class="timeline-body">
-                        <div class="row">
                             <div class="col-6">
                                 <ul class="list-group">
                                     <li class="list-group-item">Status Pengumpulan CD</li>
@@ -352,7 +329,6 @@ use App\Helpers\Utils;
                     </div>
                     </div>
                 </div>
-                <!-- END timeline item -->
                 </div>
             </div>
             <!-- /.col -->

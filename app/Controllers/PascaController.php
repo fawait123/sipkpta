@@ -8,10 +8,14 @@ use App\Models\DosenModel;
 use App\Models\AdminModel;
 use App\Models\KaprodiModel;
 use App\Models\MahasiswaModel;
+use App\Models\PendaftaranModel;
+use App\Models\PengumpulanBerkasModel;
 use App\Models\DataKp;
+use App\Models\PascaModel;
 use App\Models\DataTa;
 use App\Helpers\Utils;
 use App\Libraries\DriveApi;
+
 
 class PascaController extends BaseController
 {
@@ -133,11 +137,20 @@ class PascaController extends BaseController
     {
         if (session()->get('isLoggedIn')) :
             $model = $this->getRole(session()->get('role'));
+            $model2 = new PendaftaranModel();
+            $model3 = new PengumpulanBerkasModel();
+            $model4 = new PascaModel();
             $data['breadcrumbs'] = $this->bread->buildAuto();
             $data['title'] = "Bimbingan TA";
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['pendaftaran'] = $model2->getWithRelation('TA','Terjadwal',session()->get('username'))->getRow();
+            $data['berkas'] = $model3->where('npm',session()->get('username'))->first();
+            $data['jenis'] = $model4->getJenis()->getResult();
+            $data['peran'] = $model4->getPeran()->getResult();
+            $data['tingkat'] = $model4->getTingkat()->getResult();
+            $data['sertifikat'] = $model4->getSertifikat(session()->get('username'))->getResult();
             echo view("pasca/yudisium", $data);
         else :
             return redirect()->to('home');
@@ -405,6 +418,112 @@ class PascaController extends BaseController
         return redirect('admin/pasca/kerjapraktik');
     }
 
+    public function adminYudisium()
+    {
+        if (session()->get('isLoggedIn')) :
+            $model = $this->getRole(session()->get('role'));
+            $model2 = new PendaftaranModel();
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Pasca Yudisium";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['data'] = $model2->getWithRelation('TA','Terjadwal')->getResult();
+            echo view("pasca/admin/yudisium", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
+    public function adminBerkas($npm)
+    {
+        if (session()->get('isLoggedIn')) :
+            $model2 = new PengumpulanBerkasModel();
+            $model = $this->getRole(session()->get('role'));
+            $data['breadcrumbs'] = $this->bread->buildAuto();
+            $data['title'] = "Bimbingan TA";
+            $data['username'] = session()->get('username');
+            $data['role'] = session()->get('role');
+            $data['user'] = $model->getUser(session()->get('username'))->getResult();
+            $data['npm'] = $npm;
+            $data['berkas'] = $model2->where('npm',$npm)->first();
+            echo view("pasca/admin/berkas", $data);
+        else :
+            return redirect()->to('home');
+        endif;
+    }
+
+    public function updateBerkas()
+    {
+        $npm = $this->request->getVar('npm');
+        $foto_studio = $this->request->getVar('foto_studio');
+        $penulisan_identitas = $this->request->getVar('penulisan_identitas');
+        $ijazah = $this->request->getVar('ijazah');
+        $akte_kelahiran = $this->request->getVar('akte_kelahiran');
+        $data_pribadi = $this->request->getVar('data_pribadi');
+        $surat_rekomendasi = $this->request->getVar('surat_rekomendasi');
+        $berita_acara = $this->request->getVar('berita_acara');
+        $cd = $this->request->getVar('cd');
+
+        $dataBerkas = [
+            [
+                'nama'=>'Bukti Prosesi Foto dari studio',
+                'status'=>$foto_studio ? true : false
+            ],
+            [
+                'nama'=>'Surat Pernyataan Penulisan Identitas',
+                'status'=>$penulisan_identitas ? true : false
+            ],
+            [
+                'nama'=>'Ijazah SLTA/ Ijazah D3',
+                'status'=>$ijazah ? true : false
+            ],
+            [
+                'nama'=>'Akte Kelahiran (Legalisir)',
+                'status'=>$akte_kelahiran ? true : false
+            ],
+            [
+                'nama'=>'Data Pribadi & Pas Foto 4x6',
+                'status'=>$data_pribadi ? true : false
+            ],
+            [
+                'nama'=>'Surat Rekomendasi Ka. Prodi (Wisuda)',
+                'status'=>$surat_rekomendasi ? true : false
+            ],
+            [
+                'nama'=>'FC Berita Acara Ujian Pendadaran',
+                'status'=>$berita_acara ? true : false
+            ],
+            [
+                'nama'=>'CD yang sudah di ttd dosbing',
+                'status'=>$cd ? true : false
+            ],
+        ];
+
+        // check 
+        $model = new PengumpulanBerkasModel();
+        $model2 = new PendaftaranModel();
+
+        $check = $model->where('npm',$npm)->first();
+
+        if(!is_null($check)){
+            $model->update([
+                'id'=>$check->id
+            ],[
+                'berkas'=>json_encode($dataBerkas)
+            ]);
+
+            return 'success';
+        }
+
+        $model->insert([
+            'npm'=>$npm,
+            'berkas'=>json_encode($dataBerkas)
+        ]);
+
+        return 'success';
+    }
+
 
     public function template()
     {
@@ -446,6 +565,56 @@ class PascaController extends BaseController
         }
 
         return $model;
+    }
+
+    public function uploadSertifikat()
+    {
+        $bukti = $this->request->getFile('bukti');
+        $user = Utils::getUser(session()->get('username'));
+        $folder_id = Utils::exist_folder($user->npm, $user->nama_mahasiswa, 'ta','yudisium');
+
+
+        // abstrak
+        if ($bukti) {
+            $file_path_bukti = $bukti->getTempName();
+            $file_type_bukti = $bukti->getMimeType();
+            $file_name_bukti = $user->npm . '_' . $user->nama_mahasiswa . "_bukti.".$bukti->getExtension();
+            $driveIdBukti = DriveApi::upload($file_name_bukti, $file_path_bukti, $file_type_bukti, $folder_id);
+        }
+
+        $model = new PascaModel();
+
+        $where = [
+            [
+                'field'=>'Peran',
+                'value'=>$this->request->getVar('peran')
+            ],
+            [
+                'field'=>'Jenis_Kegiatan',
+                'value'=>$this->request->getVar('jenis')
+            ],
+            [
+                'field'=>'Tingkat',
+                'value'=>$this->request->getVar('tingkat')
+            ]
+        ];
+
+        $point = $model->getData('detail_poin',$where)->getRow();
+
+
+        $data = [
+            'Kode_Peran'=>$this->request->getVar('peran'),
+            'Kode_Tingkat'=>$this->request->getVar('tingkat'),
+            'Kode_Kegiatan'=>$this->request->getVar('jenis'),
+            'bukti'=>$driveIdBukti,
+            'npm'=>session()->get('username'),
+            'Kode_Detail_Poin'=>$point->Kode_Detail_Poin
+        ];
+
+        $model->insertData('bukti_sertifikat',$data);
+
+        session()->setFlashdata('pesan', 'Upload sertifikat berhasil');
+        return redirect('pasca/yudisium');
     }
 
 }

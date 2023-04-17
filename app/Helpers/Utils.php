@@ -63,4 +63,20 @@ class Utils {
         $stop_date->modify('+'.$day.' day');
         return $stop_date->format('Y-m-d H:i:s');
     }
+
+    public static function filter($dataBerkas)
+    {
+        $newArr = [];
+        
+        foreach($dataBerkas as $item){
+            if($item->status == true){
+                array_push($newArr,[
+                    'nama'=>$item->nama,
+                    'status'=>$item->status
+                ]);
+            }
+        }
+
+        return $newArr;
+    }
 }
