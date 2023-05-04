@@ -98,4 +98,13 @@ class PascaModel extends Model
         endif;
         return $builder->get();
     }
+
+    public function updateData($table,$data,$id)
+    {
+        $builder = $this->db->table($table);
+
+        $builder = $builder->update($data,$id);
+
+        return $builder;
+    }
 }

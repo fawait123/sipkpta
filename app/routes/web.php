@@ -98,5 +98,6 @@ $routes->group('admin/pasca', ['filter' => 'authfilter'], function ($routes) {
     $routes->get('yudisium', 'PascaController::adminYudisium');
     $routes->get('yudisium/berkas/(:any)', 'PascaController::adminBerkas/$1');
     $routes->get('yudisium/updateBerkas', 'PascaController::updateBerkas');
+    $routes->get('yudisium/updateSertifikat', 'PascaController::updateSertifikat');
     $routes->get('tugasakhir/show/(:any)', 'PascaController::adminshowta/$1');
 });

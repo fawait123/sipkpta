@@ -79,4 +79,18 @@ class Utils {
 
         return $newArr;
     }
+
+    public static function accSertifikat($arr)
+    {
+        $accSertifikat = [];
+
+        foreach($arr as $item){
+            if($item->is_approve == 1){
+                array_push($accSertifikat,$item);
+            }
+        }
+
+
+        return $accSertifikat;
+    }
 }
