@@ -22,7 +22,8 @@ $model = new PengumpulanBerkasModel();
                 <tbody>
                     <?php $no=1; ?>
                     <?php foreach($data as $item): ?>
-                        <?php
+                        <?php if($item->tempat != null): ?>
+                            <?php
                             $berkas = $model->where('npm',$item->npm)->first();
                             $dataBerkas = $berkas ? json_decode($berkas->berkas) : [];  
                             $dataBerkas = Utils::filter($dataBerkas);
@@ -36,6 +37,7 @@ $model = new PengumpulanBerkasModel();
                                 <a href="<?=base_url('admin/pasca/yudisium/berkas/'.$item->npm)?>" class="btn btn-default btn-sm">&nbsp;&nbsp;<i class="fa fa-info"></i>&nbsp;&nbsp;</a>
                             </td>
                         </tr>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>

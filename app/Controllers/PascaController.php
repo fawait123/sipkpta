@@ -145,7 +145,7 @@ class PascaController extends BaseController
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
-            $data['pendaftaran'] = $model2->getWithRelation('TA','Terjadwal',session()->get('username'))->getRow();
+            $data['pendaftaran'] = $model2->getWithRelation('TA',null,session()->get('username'))->getRow();
             $data['berkas'] = $model3->where('npm',session()->get('username'))->first();
             $data['jenis'] = $model4->getJenis()->getResult();
             $data['peran'] = $model4->getPeran()->getResult();
@@ -428,7 +428,7 @@ class PascaController extends BaseController
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
-            $data['data'] = $model2->getWithRelation('TA','Terjadwal')->getResult();
+            $data['data'] = $model2->getWithRelation('TA',null)->getResult();
             echo view("pasca/admin/yudisium", $data);
         else :
             return redirect()->to('home');
@@ -601,6 +601,8 @@ class PascaController extends BaseController
 
         $point = $model->getData('detail_poin',$where)->getRow();
 
+        // dd($point);
+
 
         $data = [
             'Kode_Peran'=>$this->request->getVar('peran'),
@@ -615,6 +617,52 @@ class PascaController extends BaseController
 
         session()->setFlashdata('pesan', 'Upload sertifikat berhasil');
         return redirect('pasca/yudisium');
+    }
+
+
+    public function getPeran()
+    {
+        $kode = $this->request->getVar('kode');
+        $model = new PascaModel();
+
+        $peran = $model->getData('jenis_peran',[
+            [
+                'field'=>'Kode_Kegiatan',
+                'value'=>$kode
+            ]
+        ])->getResult();
+
+        $arr1 = [];
+
+        foreach($peran as $item){
+            array_push($arr1,$item->Kode_Peran);
+        }
+
+
+        $tingkat = $model->getData('jenis_tingkat',[
+            [
+                'field'=>'Kode_Kegiatan',
+                'value'=>$kode
+            ]
+        ])->getResult();
+
+        $arr2 = [];
+
+        foreach($tingkat as $item){
+            array_push($arr2,$item->Kode_Tingkat);
+        }
+
+        $query1 = count($arr1) == 0 ? [] :  $model->getPeran($arr1)->getResult();
+
+        $query2 = count($arr2) == 0 ? [] :  $model->getTingkat($arr2)->getResult();
+
+        $data =  [
+           'peran'=>$query1,
+           'tingkat'=>$query2,
+           'arr'=>$tingkat
+        ];
+
+        return json_encode($data);
     }
 
 }

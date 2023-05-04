@@ -47,15 +47,21 @@ class PascaModel extends Model
         return $builder->get();
     }
 
-    public function getPeran()
+    public function getPeran($whereIn = null)
     {
         $builder = $this->db->table('peran');
+        if($whereIn != null):
+            $builder = $builder->whereIn('Kode_Peran',$whereIn);
+        endif;
         return $builder->get();
     }
 
-    public function getTingkat()
+    public function getTingkat($whereIn = null)
     {
         $builder = $this->db->table('tingkat');
+        if($whereIn != null):
+            $builder = $builder->whereIn('Kode_Tingkat',$whereIn);
+        endif;
         return $builder->get();
     }
 

@@ -9,7 +9,7 @@ $model = new PengumpulanBerkasModel();
 $dataBerkas = $berkas ? json_decode($berkas->berkas) : [];  
 $dataBerkas = Utils::filter($dataBerkas);
 ?>
-<?php if($pendaftaran): ?>
+<?php if($pendaftaran && $pendaftaran->tempat != null): ?>
 <div class="card">
     <div class="card-header">Status Pengumpulan Berkas</div>
     <div class="card-body">
@@ -104,7 +104,7 @@ $dataBerkas = Utils::filter($dataBerkas);
                   <div class="tab-pane active" id="tab_1">
                   <form action="<?=base_url('pasca/upload/sertifikat')?>" method="post"  enctype="multipart/form-data" id="form-sertifikat">
         <div class="form-group">
-            <label for="jenis">Jenis</label>
+            <label for="jenis">Jenis <span class="text-danger">*</span></label>
             <select name="jenis" id="peran" class="form-control">
                 <option value="">pilih</option>
                 <?php foreach($jenis as $item): ?>
@@ -113,25 +113,19 @@ $dataBerkas = Utils::filter($dataBerkas);
             </select>
         </div>
         <div class="form-group">
-            <label for="peran">Peran</label>
+            <label for="peran">Peran <span class="text-danger">*</span></label>
             <select name="peran" id="peran" class="form-control">
                 <option value="">pilih</option>
-                <?php foreach($peran as $item): ?>
-                    <option value="<?=$item->Kode_Peran?>"><?=$item->Peran?></option>
-                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
             <label for="tingkat">Tingkat</label>
             <select name="tingkat" id="peran" class="form-control">
                 <option value="">pilih</option>
-                <?php foreach($tingkat as $item): ?>
-                    <option value="<?=$item->Kode_Tingkat?>"><?=$item->Tingkat?></option>
-                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
-            <label for="bukti">Bukti</label>
+            <label for="bukti">Bukti <span class="text-danger">*</span></label>
             <input type="file" name="bukti" class="form-control">
         </div>
         <div class="form-group">
@@ -162,6 +156,45 @@ $dataBerkas = Utils::filter($dataBerkas);
           <!-- /.col -->
         </div>
         <!-- /.row -->
+
+        <script>
+            $(document).ready(function(){
+                // select peran
+                $("select[name='jenis']").on("change",function(){
+                    let val = $(this).val()
+                    $.ajax({
+                        url:'<?=base_url('pasca/getPeran')?>',
+                        type:'get',
+                        dataType: "json",
+                        data:{
+                            kode:val
+                        },
+                        success:function(res){
+                            console.log(res)
+                            let peran = '<option value="">pilih</option>';
+                            let tingkat = '<option value="">pilih</option>';
+                            let resPeran = res.peran
+                            let resTingkat = res.tingkat
+
+                            if(resPeran.length > 0){
+                                resPeran.map((el)=>{
+                                    peran += `<option value="${el.Kode_Peran}">${el.Peran}</option>`;
+                                })
+                            }
+
+                            if(resTingkat.length > 0){
+                                resTingkat.map((el)=>{
+                                    tingkat += `<option value="${el.Kode_Tingkat}">${el.Tingkat}</option>`;
+                                })
+                            }
+
+                            $("select[name='peran']").html(peran)
+                            $("select[name='tingkat']").html(tingkat)
+                        }
+                    })
+                })
+            })
+        </script>
 <?php else: ?>
 <div class="card">
     <div class="card-body">
@@ -189,9 +222,6 @@ $dataBerkas = Utils::filter($dataBerkas);
                     peran:{
                         required:true,
                     },
-                    tingkat:{
-                        required:true,
-                    }
                 },
                 messages: {
                     bukti: {
