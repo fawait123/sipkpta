@@ -79,9 +79,21 @@ $dataBerkas = Utils::filter($dataBerkas);
                 </td>
             </tr>
             <tr>
-                <td>Jumlah Point Sertifikat</td>
+                <td>Jumlah point sertifikat yang diajukan</td>
                 <td>
-                    <?=array_sum(array_column($sertifikat, 'poin')); ?>, <?=array_sum(array_column($sertifikat, 'poin')) >= 10 ? 'Memenuhi' : 'Belum Memenuhi' ?>
+                    <?=array_sum(array_column($sertifikat, 'poin')); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Jumlah point sertifikat yang disetujui</td>
+                <td>
+                    <?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin')); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Status sertifikat</td>
+                <td>
+                    <?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin')) >= 10 ? 'Memenuhi Syarat' : 'Belum Memenuhi Syarat' ?>
                 </td>
             </tr>
         </table>
@@ -142,6 +154,7 @@ $dataBerkas = Utils::filter($dataBerkas);
                                     <i class="fa fa-file text-center text-danger" style="font-size:24px"></i>
                                     <h6 class="text-bold text-secondary mt-2 text-center"><?=$item->peran?> (<?=$item->poin?>)</h6>
                                     <h6 class="text-bold text-secondary mt-2 text-center"><?=$item->kegiatan?> / <?=$item->tingkat?></h6>
+                                    <span class="badge bg-<?=$item->is_approve == 1 ? 'primary' : 'danger'?>"><?=$item->is_approve == 1 ? 'Disetujui' : 'Belum disetujui'?></span>
                                 </a>
                             </div>
                         <?php endforeach; ?>

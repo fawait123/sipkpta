@@ -439,14 +439,20 @@ class PascaController extends BaseController
     {
         if (session()->get('isLoggedIn')) :
             $model2 = new PengumpulanBerkasModel();
+            $model3 = new MahasiswaModel();
             $model = $this->getRole(session()->get('role'));
+            $model4 = new PascaModel();
             $data['breadcrumbs'] = $this->bread->buildAuto();
             $data['title'] = "Bimbingan TA";
             $data['username'] = session()->get('username');
             $data['role'] = session()->get('role');
             $data['user'] = $model->getUser(session()->get('username'))->getResult();
             $data['npm'] = $npm;
+            $data['mahasiswa'] = $model3->getUser($npm)->getRow();
             $data['berkas'] = $model2->where('npm',$npm)->first();
+            $data['sertifikat'] = $model4->getSertifikat($npm)->getResult();
+            // dd($data);
+
             echo view("pasca/admin/berkas", $data);
         else :
             return redirect()->to('home');
@@ -663,6 +669,33 @@ class PascaController extends BaseController
         ];
 
         return json_encode($data);
+    }
+
+    public function updateSertifikat()
+    {
+        $id = $this->request->getVar('id');
+
+        $model = new PascaModel();
+
+        $find = $model->getData('bukti_sertifikat',[
+            [
+                'field'=>'id',
+                'value'=>$id
+            ]
+        ])->getRow();
+
+
+        $is_approve = $find ? $find->is_approve == 0 ? 1 : 0 : 0;
+
+        $model->updateData('bukti_sertifikat',[
+            'is_approve'=>$is_approve
+        ],[
+            'id'=>$id
+        ]);
+
+
+        return json_encode($find);
+
     }
 
 }

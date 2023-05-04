@@ -1,76 +1,153 @@
 <?= $this->extend('layout'); ?>
 <?= $this->section('content'); ?>
-<div class="card">
-    <div class="card-body">
-    <div class="table-responsive">
-        <form action="#" id="form-berkas">
+<?php
+use App\Libraries\DriveApi;
+use App\Helpers\Utils;
+
+?>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <ul class="list-group">
+                            <li class="list-group-item text-bold">NPM</li>
+                            <li class="list-group-item text-bold">Nama</li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul class="list-group">
+                            <li class="list-group-item text-bold"><?=$mahasiswa->npm?></li>
+                            <li class="list-group-item text-bold"><?=$mahasiswa->nama_mahasiswa?></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+        <div class="card-header">
+            <h6>List Berkas</h6>
+        </div>
+            <div class="card-body">
+            <form action="#" id="form-berkas">
         <input type="hidden" name="npm" value="<?=$npm?>">
         <table class="table table-bordered">
             <tr>
                 <td>1.</td>
                 <td>Bukti Prosesi Foto dari studio</td>
                 <td>
-                    <input type="checkbox" name="foto_studio" <?= $berkas && json_decode($berkas->berkas)[0]->status == true ? 'checked':''?> >
+                    <input class="berkas" type="checkbox" name="foto_studio" <?= $berkas && json_decode($berkas->berkas)[0]->status == true ? 'checked':''?> >
                 </td>
             </tr>
             <tr>
                 <td>2.</td>
                 <td>Surat Pernyataan Penulisan Identitas</td>
                 <td>
-                    <input type="checkbox" name="penulisan_identitas"  <?= $berkas && json_decode($berkas->berkas)[1]->status == true ? 'checked':''?> >
+                    <input class="berkas" type="checkbox" name="penulisan_identitas"  <?= $berkas && json_decode($berkas->berkas)[1]->status == true ? 'checked':''?> >
                 </td>
             </tr>
             <tr>
                 <td>3.</td>
                 <td>Ijazah SLTA/ Ijazah D3</td>
                 <td>
-                    <input type="checkbox" name="ijazah"  <?= $berkas && json_decode($berkas->berkas)[2]->status == true ? 'checked':''?>>
+                    <input class="berkas" type="checkbox" name="ijazah"  <?= $berkas && json_decode($berkas->berkas)[2]->status == true ? 'checked':''?>>
                 </td>
             </tr>
             <tr>
                 <td>4.</td>
                 <td>Akte Kelahiran (Legalisir)</td>
                 <td>
-                    <input type="checkbox" name="akte_kelahiran"  <?= $berkas && json_decode($berkas->berkas)[3]->status == true ? 'checked':''?>>
+                    <input class="berkas" type="checkbox" name="akte_kelahiran"  <?= $berkas && json_decode($berkas->berkas)[3]->status == true ? 'checked':''?>>
                 </td>
             </tr>
             <tr>
                 <td>5.</td>
                 <td>Data Pribadi & Pas Foto 4x6</td>
                 <td>
-                    <input type="checkbox" name="data_pribadi"  <?= $berkas && json_decode($berkas->berkas)[4]->status == true ? 'checked':''?>>
+                    <input class="berkas" type="checkbox" name="data_pribadi"  <?= $berkas && json_decode($berkas->berkas)[4]->status == true ? 'checked':''?>>
                 </td>
             </tr>
             <tr>
                 <td>6.</td>
                 <td>Surat Rekomendasi Ka. Prodi (Wisuda)</td>
                 <td>
-                    <input type="checkbox" name="surat_rekomendasi"  <?= $berkas && json_decode($berkas->berkas)[5]->status == true ? 'checked':''?>>
+                    <input class="berkas" type="checkbox" name="surat_rekomendasi"  <?= $berkas && json_decode($berkas->berkas)[5]->status == true ? 'checked':''?>>
                 </td>
             </tr>
             <tr>
                 <td>7.</td>
                 <td>FC Berita Acara Ujian Pendadaran</td>
                 <td>
-                    <input type="checkbox" name="berita_acara"  <?= $berkas && json_decode($berkas->berkas)[6]->status == true ? 'checked':''?>>
+                    <input class="berkas" type="checkbox" name="berita_acara"  <?= $berkas && json_decode($berkas->berkas)[6]->status == true ? 'checked':''?>>
                 </td>
             </tr>
             <tr>
                 <td>8.</td>
                 <td>CD yang sudah di ttd dosbing</td>
                 <td>
-                    <input type="checkbox" name="cd"  <?= $berkas && json_decode($berkas->berkas)[7]->status == true ? 'checked':''?>>
+                    <input class="berkas" type="checkbox" name="cd"  <?= $berkas && json_decode($berkas->berkas)[7]->status == true ? 'checked':''?>>
                 </td>
             </tr>
         </table>
         </form>
+            </div>
+        </div>
     </div>
-    <a href="<?=base_url('admin/pasca/yudisium')?>" class="btn btn-warning text-white">Kembali <i class="fa fa-reply"></i></a>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h6>List Sertifikat</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Keterangan</th>
+                                <th>File</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no=1; foreach($sertifikat as $item): ?>
+                            <tr>
+                                <td><?=$no++?></td>
+                                <td><?=$item->kegiatan?>, <?=$item->peran?>, <?=$item->tingkat?></td>
+                                <td><a target="blank" href="<?=DriveApi::getFile($item->bukti)?>"><i class="fa fa-pdf"></i>&nbsp; <?=$item->bukti?></a></td>
+                                <td>
+                                    <input type="checkbox" name="sertifikat" data-id="<?=$item->id?>" <?=$item->is_approve == 1 ? 'checked' : ''?>>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="text-bold">Jumlah point sertifikat yang diajukan</p>
+                        <p class="text-bold">Jumlah point sertifikat yang disetujui</p>
+                        <p class="text-bold">Status sertifikat</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-bold"><?=array_sum(array_column($sertifikat, 'poin')); ?></p>
+                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin'));?></p>
+                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin')) >= 10 ? 'Memenuhi Syarat' : 'Belum Memenuhi Syarat' ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     $(document).ready(function(){
-        $("input[type=checkbox]").on('change',function(){
+        $(".berkas").on('change',function(){
             let form = $("#form-berkas").serialize();
             $.ajax({
                 url:'<?=base_url('admin/pasca/yudisium/updateBerkas')?>',
@@ -84,8 +161,31 @@
                 }
             })
         })
+
+
+        $("input[name='sertifikat']").on('change',function(){
+            let val = $(this).data('id')
+
+            $.ajax({
+                url:'<?=base_url('admin/pasca/yudisium/updateSertifikat')?>',
+                type:'get',
+                dataType:'json',
+                data:{
+                    id:val
+                },
+                success:function(res){
+                    console.log(res)
+                    toastr.info('Ubah sertifikat berhasil')
+                },
+                error:function(err){
+                    toastr.error('Oops, something wrong!')
+                }
+            })
+        })
     })
 </script>
+
+
 
 <?php if (session()->getFlashdata('pesan')) : ?>
     <script>
