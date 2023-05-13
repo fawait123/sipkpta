@@ -674,6 +674,7 @@ class PascaController extends BaseController
     public function updateSertifikat()
     {
         $id = $this->request->getVar('id');
+        $value = $this->request->getVar('value');
 
         $model = new PascaModel();
 
@@ -685,7 +686,15 @@ class PascaController extends BaseController
         ])->getRow();
 
 
-        $is_approve = $find ? $find->is_approve == 0 ? 1 : 0 : 0;
+        // $is_approve = $find ? $find->is_approve == 0 ? 1 : 0 : 0;
+        $is_approve;
+        if($value == 'disetujui'){
+            $is_approve = 1;
+        }else if($value == 'ditolak'){
+            $is_approve = 2;
+        }else{
+            $is_approve = 0;
+        }
 
         $model->updateData('bukti_sertifikat',[
             'is_approve'=>$is_approve

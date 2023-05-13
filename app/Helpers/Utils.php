@@ -80,12 +80,12 @@ class Utils {
         return $newArr;
     }
 
-    public static function accSertifikat($arr)
+    public static function accSertifikat($arr, $is_approve)
     {
         $accSertifikat = [];
 
         foreach($arr as $item){
-            if($item->is_approve == 1){
+            if($item->is_approve == $is_approve){
                 array_push($accSertifikat,$item);
             }
         }
