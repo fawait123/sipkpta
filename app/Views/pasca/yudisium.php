@@ -78,24 +78,24 @@ $dataBerkas = Utils::filter($dataBerkas);
                     <span class="badge bg-<?=count($dataBerkas) == 8 ? 'primary' : 'danger'?>"><?=count($dataBerkas) == 8 ? 'Lengkap' : 'Tidak Lengkap'?></span>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>Jumlah point sertifikat yang diajukan</td>
                 <td>
-                    <?=array_sum(array_column($sertifikat, 'poin')); ?>
+                    <?=array_sum(array_column($sertifikat, 'poin',0)); ?>
                 </td>
             </tr>
             <tr>
                 <td>Jumlah point sertifikat yang disetujui</td>
                 <td>
-                    <?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin')); ?>
+                    <?=array_sum(array_column(Utils::accSertifikat($sertifikat,1), 'poin')); ?>
                 </td>
             </tr>
             <tr>
                 <td>Status sertifikat</td>
                 <td>
-                    <?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin')) >= 10 ? 'Memenuhi Syarat' : 'Belum Memenuhi Syarat' ?>
+                    <?=array_sum(array_column(Utils::accSertifikat($sertifikat,1), 'poin')) >= 10 ? 'Memenuhi Syarat' : 'Belum Memenuhi Syarat' ?>
                 </td>
-            </tr>
+            </tr> -->
         </table>
     </div>
 </div>
@@ -107,8 +107,8 @@ $dataBerkas = Utils::filter($dataBerkas);
               <div class="card-header d-flex p-0">
                 <h3 class="card-title p-3">Sertifikat</h3>
                 <ul class="nav nav-pills ml-auto p-2">
-                  <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Upload Sertifikat</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">List Sertifikat</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Upload Pengajuan 10++</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">List Pengajuan 10++</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -148,16 +148,67 @@ $dataBerkas = Utils::filter($dataBerkas);
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">
                     <div class="row">
-                        <?php foreach($sertifikat as $item): ?>
-                            <div class="col-3 text-center">
-                                <a href="<?=DriveApi::getFile($item->bukti)?>" target="blank">
-                                    <i class="fa fa-file text-center text-danger" style="font-size:24px"></i>
-                                    <h6 class="text-bold text-secondary mt-2 text-center"><?=$item->peran?> (<?=$item->poin?>)</h6>
-                                    <h6 class="text-bold text-secondary mt-2 text-center"><?=$item->kegiatan?> / <?=$item->tingkat?></h6>
-                                    <span class="badge bg-<?=$item->is_approve == 1 ? 'primary' : 'danger'?>"><?=$item->is_approve == 1 ? 'Disetujui' : 'Belum disetujui'?></span>
-                                </a>
+                            <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Kegiatan</th>
+                                                    <th>Peran</th>
+                                                    <th>Tingkat</th>
+                                                    <th>File</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $no=1; foreach($sertifikat as $item): ?>
+                                                <tr>
+                                                    <td><?=$no++?></td>
+                                                    <td><?=$item->kegiatan?></td>
+                                                    <td><?=$item->peran?></td>
+                                                    <td><?=$item->tingkat?></td>
+                                                    <td><a target="blank" href="<?=DriveApi::getFile($item->bukti)?>"><i class="fa fa-pdf"></i>&nbsp; <?=$item->bukti?></a></td>
+                                                    <!-- <td>
+                                                        <input type="checkbox" name="sertifikat" data-id="<?=$item->id?>" <?=$item->is_approve == 1 ? 'checked' : ''?>>
+                                                    </td> -->
+                                                    <td>
+                                                        <?php if($item->is_approve == 0): ?>
+                                                            <span class="badge bg-danger">diproses</span>
+                                                            <?php elseif($item->is_approve == 1): ?>
+                                                            <span class="badge bg-primary">disetujui</span>
+                                                            <?php else: ?>
+                                                            <span class="badge bg-danger">ditolak</span>
+                                                            <?php endif; ?>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="text-bold">Jumlah Point++ yang diajukan</p>
+                                            <p class="text-bold">Jumlah Point++ yang diproses</p>
+                                            <p class="text-bold">Jumlah Point++ yang disetujui</p>
+                                            <p class="text-bold">Jumlah Point++ yang ditolak</p>
+                                            <p class="text-bold">Status sertifikat</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="text-bold"><?=array_sum(array_column($sertifikat, 'poin')); ?></p>
+                                            <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,0), 'poin'));?></p>
+                                            <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,1), 'poin'));?></p>
+                                            <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,2), 'poin'));?></p>
+                                            <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,1), 'poin')) >= 10 ? 'Memenuhi Syarat' : 'Belum Memenuhi Syarat' ?></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        <?php endforeach; ?>
+                            </div>
                     </div>
                   </div>
                 </div>

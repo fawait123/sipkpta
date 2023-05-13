@@ -107,7 +107,9 @@ use App\Helpers\Utils;
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Keterangan</th>
+                                <th>Kegiatan</th>
+                                <th>Peran</th>
+                                <th>Tingkat</th>
                                 <th>File</th>
                                 <th>Aksi</th>
                             </tr>
@@ -116,10 +118,19 @@ use App\Helpers\Utils;
                             <?php $no=1; foreach($sertifikat as $item): ?>
                             <tr>
                                 <td><?=$no++?></td>
-                                <td><?=$item->kegiatan?>, <?=$item->peran?>, <?=$item->tingkat?></td>
+                                <td><?=$item->kegiatan?></td>
+                                <td><?=$item->peran?></td>
+                                <td><?=$item->tingkat?></td>
                                 <td><a target="blank" href="<?=DriveApi::getFile($item->bukti)?>"><i class="fa fa-pdf"></i>&nbsp; <?=$item->bukti?></a></td>
-                                <td>
+                                <!-- <td>
                                     <input type="checkbox" name="sertifikat" data-id="<?=$item->id?>" <?=$item->is_approve == 1 ? 'checked' : ''?>>
+                                </td> -->
+                                <td>
+                                    <select name="sertifikat" id="sertifikat" data-id="<?=$item->id?>">
+                                        <option value="proses" <?=$item->is_approve == 0 ? 'selected' : ''?>>proses</option>
+                                        <option value="disetujui" <?=$item->is_approve == 1 ? 'selected' : ''?>>disetujui</option>
+                                        <option value="ditolak" <?=$item->is_approve == 2 ? 'selected' : ''?>>ditolak</option>
+                                    </select>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -130,14 +141,18 @@ use App\Helpers\Utils;
             <div class="card-footer">
                 <div class="row">
                     <div class="col-6">
-                        <p class="text-bold">Jumlah point sertifikat yang diajukan</p>
-                        <p class="text-bold">Jumlah point sertifikat yang disetujui</p>
+                        <p class="text-bold">Jumlah Point++ yang diajukan</p>
+                        <p class="text-bold">Jumlah Point++ yang diproses</p>
+                        <p class="text-bold">Jumlah Point++ yang disetujui</p>
+                        <p class="text-bold">Jumlah Point++ yang ditolak</p>
                         <p class="text-bold">Status sertifikat</p>
                     </div>
                     <div class="col-6">
                         <p class="text-bold"><?=array_sum(array_column($sertifikat, 'poin')); ?></p>
-                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin'));?></p>
-                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat), 'poin')) >= 10 ? 'Memenuhi Syarat' : 'Belum Memenuhi Syarat' ?></p>
+                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,0), 'poin'));?></p>
+                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,1), 'poin'));?></p>
+                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,2), 'poin'));?></p>
+                        <p class="text-bold"><?=array_sum(array_column(Utils::accSertifikat($sertifikat,1), 'poin')) >= 10 ? 'Memenuhi Syarat' : 'Belum Memenuhi Syarat' ?></p>
                     </div>
                 </div>
             </div>
@@ -163,15 +178,17 @@ use App\Helpers\Utils;
         })
 
 
-        $("input[name='sertifikat']").on('change',function(){
-            let val = $(this).data('id')
+        $("select[name='sertifikat']").on('change',function(){
+            let id = $(this).data('id')
+            let value = $(this).val()
 
             $.ajax({
                 url:'<?=base_url('admin/pasca/yudisium/updateSertifikat')?>',
                 type:'get',
                 dataType:'json',
                 data:{
-                    id:val
+                    id:id,
+                    value:value
                 },
                 success:function(res){
                     console.log(res)
