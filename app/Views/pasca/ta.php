@@ -384,7 +384,7 @@ use App\Helpers\Utils;
                 <div class="alert alert-primary" role="alert">
                      <ul>
                         <li>Pendaftaran pasca pendadaran tugas akhir sudah di tutup</li>
-                        <li>Pendaftaran Berakhir Pada tanggal <?= Utils::addDate($row->tgl,51) ?></li>
+                        <li>Pendaftaran Berakhir Pada tanggal <?= Utils::addDate($check->tgl,51) ?></li>
                      </ul>
                 </div>
             <?php endif; ?>
