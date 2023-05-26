@@ -39,6 +39,7 @@ class PascaController extends BaseController
             $data['row'] = $dataKp->findOne('data_kp.Npm',session()->get('username'),'tb_pengajuan');
             $data['pengajuan'] = $dataKp->getJudul(session()->get('username'),'KP')->getRow();
             $data['check'] = $dataKp->getPendaftaran(session()->get('username'))->getRow();
+            dd($data);
             echo view("pasca/kp", $data);
         else :
             return redirect()->to('home');
