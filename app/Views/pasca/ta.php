@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Jakarta');
 use App\Libraries\DriveApi;
 use App\Helpers\Utils;
 ?>
-    <?php if($check && $check->status_pendaftaran == 'Terjadwal'): ?>
+    <?php if($check && $check->tempat != null): ?>
         <?php
             $sekarang = strtotime(date("Y-m-d H:i:s"));
             $penutupan = Utils::addDate($check->tgl,51);
