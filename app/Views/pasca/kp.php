@@ -7,11 +7,11 @@ use App\Helpers\Utils;
 ?>
     <?php if($check): ?>
         <?php
-            $sekarang = strtotime(date("Y-m-d H:i:s"));
             $penutupan = Utils::addDate($check->tgl,51);
-            $penutupan = strtotime($penutupan);    
+            $sekarang = new DateTime(date('Y-m-d H:i:s'));
+            $penutupan = new DateTime($penutupan);    
         ?>
-        <?php if($sekarang >= $penutupan && $sekarang <= $penutupan): ?>
+        <?php if($penutupan >= $sekarang && $sekarang <= $penutupan): ?>
             <?php if($row): ?>
             <div class="alert alert-primary" role="alert">
                 <ul>
@@ -338,7 +338,7 @@ use App\Helpers\Utils;
                 <div class="alert alert-primary" role="alert">
                      <ul>
                         <li>Pendaftaran pasca seminar kerja praktik sudah di tutup</li>
-                        <li>Pendaftaran Berakhir Pada tanggal <?= Utils::addDate($row->tgl,51) ?></li>
+                        <li>Pendaftaran Berakhir Pada tanggal <?= Utils::addDate($check->tgl,51) ?></li>
                      </ul>
                 </div>
             <?php endif ?>
