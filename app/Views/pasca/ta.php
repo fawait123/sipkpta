@@ -7,12 +7,12 @@ use App\Helpers\Utils;
 ?>
     <?php if($check && $check->tempat != null): ?>
         <?php
-            $sekarang = strtotime(date("Y-m-d H:i:s"));
             $penutupan = Utils::addDate($check->tgl,51);
-            $penutupan = strtotime($penutupan);    
+            $sekarang = new DateTime(date('Y-m-d H:i:s'));
+            $penutupan = new DateTime($penutupan);   
         ?>
 
-        <?php if($sekarang >= $penutupan && $sekarang <= $penutupan): ?>
+        <?php if($penutupan >= $sekarang  && $sekarang <= $penutupan): ?>
             <?php if($row): ?>
             <div class="alert alert-primary" role="alert">
                 <ul>
