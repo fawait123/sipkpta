@@ -100,4 +100,6 @@ $routes->group('admin/pasca', ['filter' => 'authfilter'], function ($routes) {
     $routes->get('yudisium/updateBerkas', 'PascaController::updateBerkas');
     $routes->get('yudisium/updateSertifikat', 'PascaController::updateSertifikat');
     $routes->get('tugasakhir/show/(:any)', 'PascaController::adminshowta/$1');
+    $routes->get('kerjapraktik/delete/(:any)', 'PascaController::admindeletekp/$1');
+    $routes->get('tugasakhir/delete/(:any)', 'PascaController::admindeleteta/$1');
 });

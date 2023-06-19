@@ -708,4 +708,26 @@ class PascaController extends BaseController
 
     }
 
+    public function admindeletekp($id)
+    {
+        $model = new PascaModel();
+        $model->setForeignKeyCheks();
+        $model->deleteData('data_kp', [
+            'Kode_Data_KP'=>$id
+        ]);
+
+        return redirect('admin/pasca/kerjapraktik');
+    }
+
+    public function admindeleteta($id)
+    {
+        $model = new PascaModel();
+        $model->setForeignKeyCheks();
+        $model->deleteData('data_ta', [
+            'Kode_Data_TA'=>$id
+        ]);
+
+        return redirect('admin/pasca/tugasakhir');
+    }
+
 }
