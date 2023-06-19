@@ -107,4 +107,15 @@ class PascaModel extends Model
 
         return $builder;
     }
+
+    public function setForeignKeyCheks()
+    {
+        $builder = $this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+    }
+
+    public function deleteData($table,$where)
+    {
+        $builder = $this->db->table($table);
+        return $builder->delete($where);
+    }
 }
