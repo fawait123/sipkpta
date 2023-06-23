@@ -184,6 +184,7 @@ class PascaController extends BaseController
                 $file_path_abstrak = $abstrak->getTempName();
                 $file_type_abstrak = $abstrak->getMimeType();
                 $file_name_abstrak = $user->npm . '_' . $user->nama_mahasiswa . "_abstrak.".$abstrak->getExtension();
+//                dd($file_name_abstrak);
                 $driveIdAbstrak = DriveApi::upload($file_name_abstrak, $file_path_abstrak, $file_type_abstrak, $folder_id);
             }
 
@@ -192,6 +193,7 @@ class PascaController extends BaseController
                 $file_path_naskah = $naskah->getTempName();
                 $file_type_naskah = $naskah->getMimeType();
                 $file_name_naskah = $user->npm . '_' . $user->nama_mahasiswa . "_naskah.".$naskah->getExtension();
+//                dd($file_name_naskah);
                 $driveIdNaskah = DriveApi::upload($file_name_naskah, $file_path_naskah, $file_type_naskah, $folder_id);
             }
 
@@ -200,14 +202,16 @@ class PascaController extends BaseController
                 $file_path_database = $database->getTempName();
                 $file_type_database = $database->getMimeType();
                 $file_name_database = $user->npm . '_' . $user->nama_mahasiswa . "_database.".$database->getExtension();
+//                dd($file_name_database);
                 $driveIdDatabase = DriveApi::upload($file_name_database, $file_path_database, $file_type_database, $folder_id);
             }
 
             // database
-            if ($program) {
+            if ($program->getSize() > 0) {
                 $file_path_program = $program->getTempName();
                 $file_type_program = $program->getMimeType();
                 $file_name_program = $user->npm . '_' . $user->nama_mahasiswa . "_program.".$database->getExtension();
+//                dd($file_path_program);
                 $driveIdProgram = DriveApi::upload($file_name_program, $file_path_program, $file_type_program, $folder_id);
             }
 
@@ -226,6 +230,7 @@ class PascaController extends BaseController
                 $file_name_infoNE = $user->npm . '_' . $user->nama_mahasiswa . "_infografisNE.".$infografis_n_e->getExtension();
                 $driveIdInfografisNE = DriveApi::upload($file_name_infoNE, $file_path_infoNE, $file_type_infoNE, $folder_id);
             }
+
 
             $data_id = Utils::generateCode('DK',$model->countData());
             $data = [
@@ -258,7 +263,7 @@ class PascaController extends BaseController
             return 'success';
         } catch (\Throwable $th) {
             session()->setFlashdata('pesan', $th->getMessage());
-            // return redirect()->to('pasca/kerjapraktik');
+//             return redirect()->to('pasca/kerjapraktik');
             return 'warning';
         }
     }
@@ -716,6 +721,10 @@ class PascaController extends BaseController
             'Kode_Data_KP'=>$id
         ]);
 
+        $model->deleteData('keterangan_kp', [
+            'Kode_Data_kp'=>$id
+        ]);
+
         return redirect('admin/pasca/kerjapraktik');
     }
 
@@ -725,6 +734,10 @@ class PascaController extends BaseController
         $model->setForeignKeyCheks();
         $model->deleteData('data_ta', [
             'Kode_Data_TA'=>$id
+        ]);
+
+        $model->deleteData('keterangan_ta', [
+            'Kode_Data_ta'=>$id
         ]);
 
         return redirect('admin/pasca/tugasakhir');
