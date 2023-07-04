@@ -232,7 +232,7 @@ class PascaController extends BaseController
             }
 
 
-            $data_id = Utils::generateCode('DK',$model->countData());
+            $data_id = Utils::generateCode('DK',date('YmdHis').$model->countData());
             $data = [
                 'Kode_Data_KP'=>$data_id,
                 'Npm'=>$user->username,
@@ -248,7 +248,7 @@ class PascaController extends BaseController
 
             $model->insertData($data);
             $data2 = [
-                'Kode_Keterangan'=>Utils::generateCode('KT',$model->countDataWithTable('keterangan_kp')),
+                'Kode_Keterangan'=>Utils::generateCode('KT',date('YmdHis').$model->countDataWithTable('keterangan_kp')),
                 'Kode_Data_kp'=>$data_id,
                 'Npm'=>session()->get('username'),
                 'Status_Kel_Data'=>'Belum diperiksa',
@@ -270,7 +270,7 @@ class PascaController extends BaseController
 
     public function storeTa()
     {
-        try {
+//        try {
             // dd($_FILES);
             $model = new DataTa();
 
@@ -356,7 +356,7 @@ class PascaController extends BaseController
                 $drive_id_infografis_n_e = DriveApi::upload($file_name_infografis_n_e, $file_path_infografis_n_e, $file_type_infografis_n_e, $folder_id);
             }
 
-            $data_id = Utils::generateCode('DK',$model->countData());
+            $data_id = Utils::generateCode('DK',date('YmdHis').$model->countData());
             $data = [
                 'Kode_Data_TA'=>$data_id,
                 'Npm'=>$user->username,
@@ -374,7 +374,7 @@ class PascaController extends BaseController
 
             $model->insertData($data);
             $data2 = [
-                'Kode_Keterangan_ta'=>Utils::generateCode('KT',$model->countDataWithTable('keterangan_kp')),
+                'Kode_Keterangan_ta'=>Utils::generateCode('KT',date('YmdHis').$model->countDataWithTable('keterangan_ta')),
                 'Kode_Data_ta'=>$data_id,
                 'Npm'=>session()->get('username'),
                 'Status_Kel_Data'=>'Belum diperiksa',
@@ -386,10 +386,10 @@ class PascaController extends BaseController
 
             session()->setFlashdata('pesan', 'Pendaftaran Pasca tugas akhir berhasil dikirim');
             return 'success';
-        } catch (\Throwable $th) {
-            session()->setFlashdata('pesan', $th->getMessage());
-            return 'warning';
-        }
+//        } catch (\Throwable $th) {
+//            session()->setFlashdata('pesan', $th->getMessage());
+//            return 'warning';
+//        }
     }
 
     public function statusTa()

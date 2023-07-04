@@ -314,6 +314,7 @@ use App\Helpers\Utils;
                                 $("button[type='submit']").html("Loading...")
                             },
                             success: function (res) {
+                              console.log('res',res)
                                 if (res === "success" || res === 'warning') {
                                     window.location.href = "<?= base_url('pasca/tugasakhir') ?>"
                                 } else {
@@ -326,6 +327,10 @@ use App\Helpers\Utils;
                                 $("button[type='submit']").attr("disabled", false)
                                 $("button[type='submit']").html("Kirim")
                             },
+                          complete:function (){
+                            $("button[type='submit']").attr("disabled", false)
+                            $("button[type='submit']").html("Kirim")
+                          }
                         })
                     }
                 });
