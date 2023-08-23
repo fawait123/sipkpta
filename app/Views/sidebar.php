@@ -621,7 +621,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
                                 Pasca
@@ -648,7 +648,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 <?php } elseif ($role == "dosen") {
                 ?>
                     <li class="nav-item">
@@ -884,7 +884,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <p>
                                 Pasca
@@ -911,7 +911,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 <?php
                 } ?>
 
