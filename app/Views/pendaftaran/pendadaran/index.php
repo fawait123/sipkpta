@@ -10,7 +10,7 @@ use App\Models\BimbinganModel;
         <?php if ($search == null) : ?>
             <div class="card">
                 <div class="card-body">
-                    <!-- <form action="<?= base_url('pendaftaran/submitpendadaran') ?>" method="POST" enctype="multipart/form-data" id="form-pendadaran">
+                    <form action="<?= base_url('pendaftaran/submitpendadaran') ?>" method="POST" enctype="multipart/form-data" id="form-pendadaran">
                         <input type="hidden" name="npm" value="<?= session()->get('username') ?>">
                         <input type="hidden" name="no_pengajuan" value="<?= $pengajuan->no_pengajuan ?>">
                         <input type="hidden" name="nik" value="<?= $pengajuan->nik ?>">
@@ -75,11 +75,11 @@ use App\Models\BimbinganModel;
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary" id="btn-submit">Kirim</button>
                         </div>
-                    </form> -->
-                   <div>
+                    </form>
+                   <!-- <div>
                         <h1>UNTUK SEMENTARA PENDAFTARAN PENDADARAN SEDANG DI TUTUP, MOHON MENUNGGU INFO SELANJUTNYA DARI ADMIN PRODI</h1>
                         <h1>TERIMA KASIH</h1>
-                   </div>
+                   </div> -->
                 </div>
             </div>
             <script>
